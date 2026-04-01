@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/Danie/.claude/plugins/cache/claude-plugins-official/figma/ -type f \\\\\\(-name *.json -o -name *.md -o -name manifest.* \\\\\\))",
+      "mcp__figma-remote-mcp__whoami",
+      "mcp__figma-remote-mcp__create_new_file",
+      "mcp__figma-remote-mcp__use_figma",
+      "Bash(npm run:*)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)"
+    ]
+  }
+}

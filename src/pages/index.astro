@@ -1,0 +1,294 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const work = [
+  {
+    period: '2025 — Present',
+    title: 'Senior Product Designer',
+    company: 'Fintech Company',
+    description:
+      'Leading the design of consumer-facing financial products. Responsible for end-to-end design of mobile banking features, payment flows, and data visualization dashboards.',
+    image: '/images/work-01.jpg',
+  },
+  {
+    period: '2023 — 2025',
+    title: 'Product Designer',
+    company: 'Digital Agency',
+    description:
+      'Designed interfaces for clients across fintech, e-commerce, and SaaS. Collaborated closely with engineering teams to ship pixel-perfect implementations.',
+    image: '/images/work-02.jpg',
+  },
+  {
+    period: '2021 — 2023',
+    title: 'Graphic Designer & Content Creator',
+    company: 'Creative Studio',
+    description:
+      'Created brand identities, marketing materials, and social media content for a diverse range of clients. Built design systems from the ground up.',
+    image: '/images/work-03.jpg',
+  },
+  {
+    period: '2019 — 2021',
+    title: 'Junior Graphic Designer',
+    company: 'Marketing Agency',
+    description:
+      'Designed print and digital assets including brochures, banners, social media graphics, and email templates. First professional design role.',
+    image: '/images/work-04.jpg',
+  },
+];
+---
+
+<Layout title="Designer — Portfolio">
+  <div id="top"></div>
+  <div class="page">
+    <main class="main-content">
+      <!-- Hero -->
+      <section class="section hero">
+        <h1 class="hero__name">Daniel Grita</h1>
+        <p class="hero__bio">
+          Portuguese Graphic Designer and Visual Artist based in Barcelona.
+          Rooted in Graffiti Culture, Graphic Design, Photography, Fine Art,
+          and Street Art.
+        </p>
+      </section>
+
+      <!-- About -->
+      <section class="section about" id="about">
+        <h2 class="section__label">About</h2>
+        <div class="about__content">
+          <p>
+            With over 5 years of experience in the design field and content
+            creation, I've had the opportunity to work and study across
+            Portugal, Holland, and now Spain.
+          </p>
+          <p>
+            My creative journey is deeply rooted in the Graffiti Culture and
+            Graphic Design world, as well as Photography, Fine Art, and
+            Street Art.
+          </p>
+          <p>
+            I'm always excited to create, collaborate and learn new skills
+            like AI, Web Design and 3D.
+          </p>
+        </div>
+      </section>
+
+      <!-- Work -->
+      <section class="section work" id="work">
+        <h2 class="section__label">Work</h2>
+        <div class="work__list">
+          {work.map((entry) => (
+            <article class="work__entry">
+              <span class="work__period">{entry.period}</span>
+              <h3 class="work__title">{entry.title}</h3>
+              <span class="work__company">{entry.company}</span>
+              <p class="work__description">{entry.description}</p>
+              <div class="work__image">
+                <div class="work__image-placeholder">
+                  <span>Image placeholder</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section contact" id="contact">
+        <h2 class="section__label">Connect</h2>
+        <div class="contact__content">
+          <p>
+            Open to freelance projects, collaborations, and new opportunities.
+            <br />Let's talk.
+          </p>
+          <div class="contact__links">
+            <a href="mailto:danielgrita@gmail.com">danielgrita@gmail.com</a>
+            <a href="tel:+34623980135">+34 623 980 135</a>
+            <a href="https://www.linkedin.com/in/danielgrita/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://www.instagram.com/danielgrita" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" aria-label="Page navigation">
+      <div class="side-nav__inner">
+        <a href="#top" class="side-nav__link">Top</a>
+        <a href="#about" class="side-nav__link">About</a>
+        <a href="#work" class="side-nav__link">Work</a>
+        <a href="#contact" class="side-nav__link">Connect</a>
+      </div>
+    </nav>
+  </div>
+</Layout>
+
+<style>
+  /* ------------------------------------------------
+     Hero
+     ------------------------------------------------ */
+
+  .hero {
+    padding-bottom: var(--space-xl);
+  }
+
+  .hero__name {
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__bio {
+    max-width: 560px;
+    font-size: 1.125rem;
+    line-height: 1.7;
+  }
+
+  /* ------------------------------------------------
+     Section label
+     ------------------------------------------------ */
+
+  .section__label {
+    display: inline-block;
+    margin-bottom: var(--space-md);
+    padding: 0.25rem 0.75rem;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  /* ------------------------------------------------
+     About
+     ------------------------------------------------ */
+
+  .about__content {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  /* ------------------------------------------------
+     Work
+     ------------------------------------------------ */
+
+  .work__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .work__entry {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .work__period {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  .work__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .work__company {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+  }
+
+  .work__description {
+    max-width: 560px;
+    margin-top: var(--space-xs);
+  }
+
+  .work__image {
+    margin-top: var(--space-sm);
+  }
+
+  .work__image-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background-color: #f5f5f5;
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  /* ------------------------------------------------
+     Contact
+     ------------------------------------------------ */
+
+  .contact__content {
+    max-width: 560px;
+  }
+
+  .contact__links {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .contact__links a {
+    font-size: 0.9375rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: var(--color-text-secondary);
+  }
+
+  .contact__links a:hover {
+    color: var(--color-accent);
+  }
+
+  /* ------------------------------------------------
+     Side Navigation
+     ------------------------------------------------ */
+
+  .side-nav {
+    position: relative;
+  }
+
+  .side-nav__inner {
+    position: sticky;
+    top: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: right;
+  }
+
+  .side-nav__link {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+  }
+
+  .side-nav__link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  /* ------------------------------------------------
+     Responsive
+     ------------------------------------------------ */
+
+  @media (max-width: 768px) {
+    .side-nav {
+      display: none;
+    }
+
+    .hero__bio,
+    .about__content,
+    .work__description,
+    .contact__content {
+      max-width: 100%;
+    }
+  }
+</style>

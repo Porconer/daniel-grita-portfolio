@@ -1,0 +1,147 @@
+/* ------------------------------------------------
+   Global Styles — Monochromatic, Minimal Portfolio
+   ------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #ffffff;
+  --color-title: #191d1a;
+  --color-text: #3a3f3b;
+  --color-text-secondary: #6b716c;
+  --color-border: #e5e5e5;
+  --color-hover: #000000;
+  --color-accent: #cff500;
+
+  --font-sans: 'Quantico', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+  --space-2xl: 10rem;
+
+  --max-width: 1200px;
+  --nav-width: 160px;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-hover);
+  text-decoration: underline;
+}
+
+::selection {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* ------------------------------------------------
+   Typography
+   ------------------------------------------------ */
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--color-title);
+}
+
+h2 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-title);
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+/* ------------------------------------------------
+   Layout
+   ------------------------------------------------ */
+
+.page {
+  display: grid;
+  grid-template-columns: 1fr var(--nav-width);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+  gap: var(--space-lg);
+}
+
+.main-content {
+  min-width: 0;
+}
+
+/* ------------------------------------------------
+   Section spacing
+   ------------------------------------------------ */
+
+.section {
+  margin-bottom: var(--space-2xl);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------
+   Responsive
+   ------------------------------------------------ */
+
+@media (max-width: 768px) {
+  :root {
+    --nav-width: 0px;
+  }
+
+  .page {
+    grid-template-columns: 1fr;
+    padding: var(--space-lg) var(--space-sm);
+  }
+}
