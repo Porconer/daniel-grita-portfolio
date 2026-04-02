@@ -33,6 +33,15 @@
   --nav-width: 160px;
 }
 
+[data-theme="dark"] {
+  --color-bg: #121412;
+  --color-title: #f0f2f0;
+  --color-text: #c5c9c6;
+  --color-text-secondary: #8a8f8b;
+  --color-border: #2a2d2a;
+  --color-hover: #ffffff;
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -45,6 +54,7 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 img {
@@ -129,6 +139,29 @@ p {
 
 .section:last-child {
   margin-bottom: 0;
+}
+
+/* ------------------------------------------------
+   Responsive
+   ------------------------------------------------ */
+
+/* ------------------------------------------------
+   Theme toggle
+   ------------------------------------------------ */
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  padding: 0.25rem 0;
+  transition: color 0.2s ease;
+  margin-left: auto;
+}
+
+.theme-toggle:hover {
+  color: var(--color-accent);
 }
 
 /* ------------------------------------------------

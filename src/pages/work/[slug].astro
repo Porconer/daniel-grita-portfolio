@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { work } from '../../data/work';
+
+export function getStaticPaths() {
+  return work.map((entry) => ({
+    params: { slug: entry.slug },
+    props: entry,
+  }));
+}
+
+const { title, company, period, description, image } = Astro.props;
+---
+
+<Layout title={`${company} — Daniel Grita`}>
+  <div class="project">
+    <div class="project__top">
+      <a href="/#work" class="project__back">← Back to portfolio</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
+        <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
+      </button>
+    </div>
+    <header class="project__header">
+      <span class="project__period">{period}</span>
+      <h1 class="project__title">{company}</h1>
+      <p class="project__role">{title}</p>
+    </header>
+    <p class="project__description">{description}</p>
+  </div>
+</Layout>
+
+<style>
+  .project {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-sm);
+  }
+
+  .project__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .project__back {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .project__back:hover {
+    color: var(--color-accent);
+  }
+
+  .project__header {
+    margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .project__period {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  .project__title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .project__role {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .project__description {
+    max-width: 560px;
+    margin-top: var(--space-md);
+    line-height: 1.7;
+  }
+</style>

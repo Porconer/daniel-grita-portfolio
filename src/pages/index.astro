@@ -1,48 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const work = [
-  {
-    period: '2024 — Present',
-    title: 'Lead Designer',
-    company: 'PayXpert',
-    description:
-      'Leading the design at PayXpert, an omnichannel payment solution based in France and Spain. Leading a comprehensive rebranding, transitioning the company from a fragmented identity to a modern, unified system. Balancing complex fintech technical requirements with clean, impactful aesthetics.',
-    image: '/images/payxpert.jpg',
-  },
-  {
-    period: '2024',
-    title: 'Photoshoot & Video Production',
-    company: 'Oppressus',
-    description:
-      'Had the privilege of producing and directing the photoshoot and launch video for these amazing shoes.',
-    image: '/images/oppressus.avif',
-  },
-  {
-    period: '2023 — 2024',
-    title: 'In-House Designer',
-    company: 'Signature Spa Consulting',
-    description:
-      'Worked as the in-house designer at Signature Spa Consulting, a luxury spa chain in Barcelona, Andorra, and Sitges. A major boost for my career, giving me the chance to take on many responsibilities, grow my skills, and get to know the beauty and holistic industry better.',
-    image: '/images/signature-spa.avif',
-  },
-  {
-    period: 'April 2024 — Remote',
-    title: 'Creative Art Direction & Photography',
-    company: 'Adobe & Scopio',
-    description:
-      'Spearheaded the visual narrative for Adobe\'s AI application, overseeing end-to-end production. Managed art direction, talent selection, and location scouting, while executing high-level photography and post-production to ensure a cohesive brand aesthetic.',
-    image: '/images/work-04.jpg',
-  },
-  {
-    period: '2021 — 2023',
-    title: 'Content Creator & Designer',
-    company: 'Lash Paris',
-    description:
-      'Lash Paris, a beauty products company in Breda, Holland, was my introduction to the world of beauty, fashion, and content creation. During my two years there, I focused on creating content for the website and social media, showcasing products and their applications. Also gained my first experience managing photoshoots with models.',
-    image: '/images/lash-paris.avif',
-  },
-];
+import { work } from '../data/work';
 ---
 
 <Layout title="Designer — Portfolio">
@@ -54,6 +12,10 @@ const work = [
     <a href="#about" class="mobile-nav__link">About</a>
     <a href="#work" class="mobile-nav__link">Work</a>
     <a href="#contact" class="mobile-nav__link">Connect</a>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+      <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
+      <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
+    </button>
   </nav>
 
   <div class="page">
@@ -108,6 +70,7 @@ const work = [
                   <img src={entry.image} alt={`${entry.company} project`} />
                 )}
               </div>
+              <a href={`/work/${entry.slug}`} class="work__link">View project →</a>
             </article>
           ))}
         </div>
@@ -138,6 +101,10 @@ const work = [
         <a href="#about" class="side-nav__link">About</a>
         <a href="#work" class="side-nav__link">Work</a>
         <a href="#contact" class="side-nav__link">Connect</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
+          <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
+        </button>
       </div>
     </nav>
   </div>
@@ -176,7 +143,7 @@ const work = [
     border-radius: 2px;
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--color-text);
+    color: #191d1a;
   }
 
   /* ------------------------------------------------
@@ -231,10 +198,29 @@ const work = [
     margin-top: var(--space-sm);
   }
 
+  .work__image img {
+    width: 100%;
+    aspect-ratio: 1905 / 911;
+    object-fit: cover;
+  }
+
+  .work__link {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+    margin-top: var(--space-xs);
+  }
+
+  .work__link:hover {
+    color: var(--color-accent);
+  }
+
   .work__image-placeholder {
     width: 100%;
     aspect-ratio: 16 / 10;
-    background-color: #f5f5f5;
+    background-color: var(--color-border);
     border: 1px solid var(--color-border);
     display: flex;
     align-items: center;
