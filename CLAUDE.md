@@ -87,57 +87,58 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 - Toggle button placed in side nav, mobile nav, and project pages
 - User preference persisted to `localStorage` under key `theme`
 
-## Session Recap (2026-04-04)
+## Session Recap (2026-04-05)
 
 ### What exists
-- **Main page** (`/`) — Hero, about, work entries, contact with sticky side nav and mobile nav. All text spans full content width. Fixed "Design System" button (bottom-right).
-- **Project pages** (`/work/[slug]`) — Two layout modes:
-  - **Case study layout** (PayXpert) — Full flowing page with hero image, 8 content sections, image galleries with lightbox, cards, accent highlight banner, and Connect section matching the index page.
-  - **Simple layout** (all other projects) — Title, role, period, description + back link.
-- **Case study data** in `src/data/case-studies.ts` — Structured per-section content (title, body, cards, highlight, images, imageCaption, uniformImages). Keyed by slug; `[slug].astro` checks for case study data and renders accordingly.
-- **Design system** (`/design-system`) — Full living reference with same two-column layout as portfolio (side nav, mobile nav, scroll-spy, scroll animations). Shows all 8 color tokens with light/dark values, typography, spacing, layout diagram, component previews (section label, work entry, side nav with active state, case study card, highlight banner, contact links, theme toggle), and interactive states. Fixed "← Portfolio" button (bottom-right). Dark mode fully supported.
+- **Main page** (`/`) — Hero, about, two content sections (Work + Projects), contact with sticky side nav and mobile nav. Nav links: Top, About, Work, Projects, Connect. Fixed "Design System" button (bottom-right). Work entry images have `border-radius: var(--radius-md)`.
+- **Project pages** (`/work/[slug]`) — Three layout modes:
+  - **Case study layout** (PayXpert) — Full flowing page with hero image, 8 content sections, image galleries with lightbox, cards, accent highlight banner, and Connect section. Link text: "View use case →".
+  - **Project layout** (Oppressus, Signature Spa, Lash Paris, Concession Perpetuelle, Toombstone Tavern, 364) — Hero image, multi-paragraph description (split on `\n\n`), 2-column image gallery, Connect section, side nav (Top/Description/Connect) + mobile nav + theme toggle.
+  - **Minimal layout** (Adobe & Scopio) — Same structure as project layout but no hero, gallery, or extended description since those fields are absent.
+- **Case study data** in `src/data/case-studies.ts` — Structured per-section content. Keyed by slug; `[slug].astro` checks for case study data and renders accordingly.
+- **Design system** (`/design-system`) — Full living reference page. Dark mode fully supported.
 - **Dark mode** — Full implementation with toggle, localStorage persistence, system preference fallback
 
+### Data architecture
+- **`src/data/work.ts`** exports three arrays:
+  - `work` — Professional entries shown in the Work section on the landing page
+  - `projects` — Personal/side projects shown in the Projects section
+  - `allEntries` — Combined array used by `[slug].astro` for `getStaticPaths()`
+- Each entry can have: `period`, `title`, `company`, `slug`, `description`, `image`, and optionally `projectDescription` (extended text for project page), `projectHero` (hero image on project page), `galleryImages` (gallery array)
+- `image` is used for the landing page thumbnail. Entries with `work-` in the image path are treated as placeholders (no image shown, no link in Projects section)
+- `projectDescription` falls back to `description` on the project page via `displayDescription`
+- Helper functions in index frontmatter: `hasProjectPage()` checks `projectDescription || projectHero`; `linkLabel()` returns "View use case →" or "View project →" based on case study data
+
+### Work section entries (landing page)
+1. **PayXpert** — Lead Designer, 2024–Present (image, **has case study**, "View use case →")
+2. **Oppressus** — Photoshoot & Video Production, 2024 (image, project page with hero + 6 gallery images)
+3. **Signature Spa Consulting** — In-House Designer, 2023–2024 (image: indoor pool model, project page with hero + 11 gallery images)
+4. **Lash Paris** — Content Creator & Designer, 2021–2023 (image: beauty portrait, project page with hero + 8 gallery images)
+
+### Projects section entries (landing page)
+1. **Concession Perpetuelle** — Photography & Editorial Design, 2024 (image, project page with hero + 9 gallery images)
+2. **Adobe & Scopio** — Creative Art Direction & Photography, April 2024 (**placeholder image**, no link, no project page content)
+3. **Toombstone Tavern** — Branding & Identity Design, 2023 (image, project page with hero + 5 gallery images)
+4. **364** — Art Direction, Photoshoot & Editorial, 2023 (image, project page with hero + 6 gallery images)
+
 ### Shared modules
-- **`src/scripts/scroll-spy.ts`** — Shared scroll-spy with floating dot, used by index, slug, and design-system pages. Named constants for magic numbers, pre-computed href-to-id mapping.
-- **`global.css`** — Contains shared styles: `.section__label`, `.contact__content`, `.contact__links`, `.fade-in`, `.animate`, `.is-visible`, `.nav-dot`, `.is-active`, `.theme-toggle`. Tokens: `--color-on-accent`, `--color-img-bg`.
+- **`src/scripts/scroll-spy.ts`** — Shared scroll-spy with floating dot, used by index, slug, and design-system pages
+- **`global.css`** — Contains shared styles: `.section__label`, `.contact__content`, `.contact__links`, `.fade-in`, `.animate`, `.is-visible`, `.nav-dot`, `.is-active`, `.theme-toggle`. Tokens: `--color-on-accent`, `--color-img-bg`
 
-### Active nav indicator (global)
-- **Scroll-spy** on index, project, and design-system pages highlights the current section in side nav and mobile nav
-- Active link gets `font-weight: 900` + `color: var(--color-hover)` for strong contrast
-- A **floating dot** (`span.nav-dot`) animates smoothly between links using CSS transitions (`cubic-bezier`). Positioned absolutely so it doesn't shift text.
-- Bottom-of-page detection activates the last nav item
-- Styles defined globally in `global.css`; scroll-spy logic in shared `src/scripts/scroll-spy.ts`
-
-### Image galleries
+### Image galleries (case study)
 - Sections can have `images?: string[]` in case study data
 - `images: []` (empty) = no image, no placeholder
 - `images` undefined = shows grey placeholder
-- `images` with entries = horizontal gallery grid inside a light grey box (`--color-img-bg`, 12px radius), wrapped in `<figure>` with optional `<figcaption>` caption
-- `uniformImages?: boolean` = forces `aspect-ratio: 4/3` on images (used by Print Materials)
-- **Lightbox** — clicking any gallery or hero image opens fullscreen overlay. Close via X, backdrop click, or Escape.
-- Mobile: gallery stacks to single column
-- All images optimized as `.webp`
+- `images` with entries = horizontal gallery grid inside a light grey box, wrapped in `<figure>` with optional `<figcaption>`
+- `uniformImages?: boolean` = forces `aspect-ratio: 4/3`
+- **Lightbox** — clicking any gallery or hero image opens fullscreen overlay. Close via X, backdrop click, or Escape
 
-### PayXpert case study sections
-1. **Overview** — Intro text + 3 goal cards. No image.
-2. **The Challenge** — Text + 2 need cards + 4-image gallery (`payxpert-old-*.webp`) + caption + accent "Problem to Solve" highlight banner
-3. **Research & Strategy** — Text + 2-image gallery (`payxpert-research-*.webp`) + caption
-4. **Web Design** — Labeled section + text + 3 cards + 2-image gallery (`payxpert-web-*.webp`) + caption
-5. **Social Media** — Labeled + text + 3 cards + 3-image gallery (`payxpert-social-*.webp`) + caption
-6. **Print & Technical Materials** — Labeled + text + 3 cards + 3-image gallery (`payxpert-print-*.webp`, uniform 4:3) + caption
-7. **The Design System** — Labeled + text + 2 cards + 1-image gallery (`payxpert-guidelines-01.webp`) + caption
-8. **Key Takeaways** — 3 cards. No image, no placeholder.
-9. **Connect** — Matches index page contact section exactly
-
-### Work entries
-1. PayXpert — Lead Designer, 2024–Present (has image, **has case study**)
-2. Oppressus — Photoshoot & Video Production, 2024 (has image)
-3. Signature Spa Consulting — In-House Designer, 2023–2024 (has image)
-4. Adobe & Scopio — Creative Art Direction & Photography, April 2024 (**placeholder image**)
-5. Lash Paris — Content Creator & Designer, 2021–2023 (has image)
+### Image galleries (project layout)
+- 2-column grid with `--color-img-bg` background and `--radius-lg` border radius
+- Stacks to single column on mobile
+- No lightbox on project pages (only case study pages)
 
 ### Still to do
 - SEO improvements (personalized meta, OG tags, sitemap, robots.txt, alt text, canonical URLs, noindex design system)
-- Build case studies for other projects (Oppressus, Signature Spa, etc.)
-- Replace Adobe & Scopio placeholder image with a real one
+- Replace Adobe & Scopio placeholder image with a real one (or add project page content)
+- Consider adding lightbox to project layout galleries

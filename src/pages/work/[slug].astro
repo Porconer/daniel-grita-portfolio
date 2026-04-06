@@ -1,17 +1,18 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { work } from '../../data/work';
+import { allEntries } from '../../data/work';
 import { caseStudies } from '../../data/case-studies';
 
 export function getStaticPaths() {
-  return work.map((entry) => ({
+  return allEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: entry,
   }));
 }
 
-const { title, company, period, description, image, slug } = Astro.props;
+const { title, company, period, description, image, slug, projectHero, galleryImages, projectDescription } = Astro.props;
 const caseStudy = caseStudies[slug];
+const displayDescription = projectDescription || description;
 ---
 
 <Layout title={`${company} — Daniel Grita`}>
@@ -141,20 +142,80 @@ const caseStudy = caseStudies[slug];
     </div>
   ) : (
     <!-- Simple layout (no case study) -->
-    <div class="project">
-      <div class="project__top">
-        <a href="/#work" class="project__back">← Back to portfolio</a>
-        <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-          <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
-          <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
-        </button>
-      </div>
-      <header class="project__header">
-        <span class="project__period">{period}</span>
-        <h1 class="project__title">{company}</h1>
-        <p class="project__role">{title}</p>
-      </header>
-      <p class="project__description">{description}</p>
+    <div id="top"></div>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="#top" class="mobile-nav__link">Top</a>
+      <a href="#description" class="mobile-nav__link">Description</a>
+      <a href="#connect" class="mobile-nav__link">Connect</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
+        <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
+      </button>
+    </nav>
+
+    <div class="page">
+      <main class="main-content">
+        <div class="project__top">
+          <a href="/#work" class="project__back">← Back to portfolio</a>
+        </div>
+
+        {projectHero && (
+          <div class="project__hero">
+            <img src={projectHero} alt={`${company} project`} />
+          </div>
+        )}
+
+        <header class="project__header">
+          <span class="project__period">{period}</span>
+          <h1 class="project__title">{company}</h1>
+          <p class="project__role">{title}</p>
+        </header>
+
+        <section id="description">
+          <div class="project__description">
+            {displayDescription.split('\n\n').map((paragraph: string) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+
+        {galleryImages && galleryImages.length > 0 && (
+          <div class="project__gallery">
+            {galleryImages.map((src: string) => (
+              <img src={src} alt="" />
+            ))}
+          </div>
+        )}
+
+        <section class="project__section section contact animate" id="connect">
+          <h2 class="section__label">Connect</h2>
+          <div class="contact__content">
+            <p>
+              Open to freelance projects, collaborations, and new opportunities.
+              <br /><strong>Let's talk.</strong>
+            </p>
+            <div class="contact__links">
+              <a href="mailto:danielgrita@gmail.com?subject=Job%20Request">danielgrita@gmail.com</a>
+              <a href="tel:+34623980135">+34 623 980 135</a>
+              <a href="https://www.linkedin.com/in/danielgrita/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://www.instagram.com/danielgrita" target="_blank" rel="noopener">Instagram</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <nav class="side-nav fade-in" aria-label="Page navigation">
+        <div class="side-nav__inner">
+          <a href="#top" class="side-nav__link">Top</a>
+          <a href="#description" class="side-nav__link">Description</a>
+          <a href="#connect" class="side-nav__link">Connect</a>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+            <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
+            <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
+          </button>
+        </div>
+      </nav>
     </div>
   )}
 </Layout>
@@ -487,10 +548,8 @@ const caseStudy = caseStudies[slug];
      Simple Layout (non case-study fallback)
      ------------------------------------------------ */
 
-  .project {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: var(--space-xl) var(--space-sm);
+  .project__section {
+    margin-top: var(--space-xl);
   }
 
   .project__top {
@@ -533,10 +592,51 @@ const caseStudy = caseStudies[slug];
     color: var(--color-text-secondary);
   }
 
+  .project__hero {
+    margin-top: var(--space-lg);
+    background-color: var(--color-img-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .project__hero img {
+    width: 100%;
+    border-radius: var(--radius-md);
+  }
+
   .project__description {
-    max-width: 560px;
+    max-width: none;
     margin-top: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .project__description p {
     line-height: 1.7;
+  }
+
+  .project__gallery {
+    margin-top: var(--space-lg);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    background-color: var(--color-img-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .project__gallery img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  @media (max-width: 768px) {
+    .project__gallery {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ------------------------------------------------

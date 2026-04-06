@@ -1,6 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { work } from '../data/work';
+import { work, projects } from '../data/work';
+import { caseStudies } from '../data/case-studies';
+
+const hasProjectPage = (entry: any) => entry.projectDescription || entry.projectHero;
+const linkLabel = (entry: any) => caseStudies[entry.slug] ? 'View use case →' : 'View project →';
 ---
 
 <Layout title="Designer — Portfolio">
@@ -11,6 +15,7 @@ import { work } from '../data/work';
     <a href="#top" class="mobile-nav__link">Top</a>
     <a href="#about" class="mobile-nav__link">About</a>
     <a href="#work" class="mobile-nav__link">Work</a>
+    <a href="#projects" class="mobile-nav__link">Projects</a>
     <a href="#contact" class="mobile-nav__link">Connect</a>
     <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
       <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
@@ -61,16 +66,35 @@ import { work } from '../data/work';
               <h3 class="work__title">{entry.title}</h3>
               <span class="work__company">{entry.company}</span>
               <p class="work__description">{entry.description}</p>
-              <div class="work__image">
-                {entry.image.includes('work-') ? (
-                  <div class="work__image-placeholder">
-                    <span>Image placeholder</span>
-                  </div>
-                ) : (
+              {!entry.image.includes('work-') && (
+                <div class="work__image">
                   <img src={entry.image} alt={`${entry.company} project`} />
-                )}
-              </div>
-              <a href={`/work/${entry.slug}`} class="work__link">View project →</a>
+                </div>
+              )}
+              <a href={`/work/${entry.slug}`} class="work__link">{linkLabel(entry)}</a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="section work animate" id="projects">
+        <h2 class="section__label">Projects</h2>
+        <div class="work__list">
+          {projects.map((entry) => (
+            <article class="work__entry animate">
+              <span class="work__period">{entry.period}</span>
+              <h3 class="work__title">{entry.title}</h3>
+              <span class="work__company">{entry.company}</span>
+              <p class="work__description">{entry.description}</p>
+              {!entry.image.includes('work-') && (
+                <div class="work__image">
+                  <img src={entry.image} alt={`${entry.company} project`} />
+                </div>
+              )}
+              {hasProjectPage(entry) && (
+                <a href={`/work/${entry.slug}`} class="work__link">{linkLabel(entry)}</a>
+              )}
             </article>
           ))}
         </div>
@@ -100,6 +124,7 @@ import { work } from '../data/work';
         <a href="#top" class="side-nav__link">Top</a>
         <a href="#about" class="side-nav__link">About</a>
         <a href="#work" class="side-nav__link">Work</a>
+        <a href="#projects" class="side-nav__link">Projects</a>
         <a href="#contact" class="side-nav__link">Connect</a>
         <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
           <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
@@ -184,6 +209,7 @@ import { work } from '../data/work';
     width: 100%;
     aspect-ratio: 1905 / 911;
     object-fit: cover;
+    border-radius: var(--radius-md);
   }
 
   .work__link {
