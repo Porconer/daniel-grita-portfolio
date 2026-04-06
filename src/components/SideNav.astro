@@ -1,0 +1,18 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  items: { id: string; label: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="side-nav fade-in" aria-label="Page navigation">
+  <div class="side-nav__inner">
+    {items.map((item) => (
+      <a href={`#${item.id}`} class="side-nav__link">{item.label}</a>
+    ))}
+    <ThemeToggle />
+  </div>
+</nav>

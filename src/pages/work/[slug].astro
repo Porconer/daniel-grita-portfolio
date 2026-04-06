@@ -1,5 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Contact from '../../components/Contact.astro';
+import SideNav from '../../components/SideNav.astro';
+import MobileNav from '../../components/MobileNav.astro';
 import { allEntries } from '../../data/work';
 import { caseStudies } from '../../data/case-studies';
 
@@ -20,15 +23,7 @@ const displayDescription = projectDescription || description;
     <!-- Case study layout -->
     <div id="top"></div>
 
-    <nav class="mobile-nav" aria-label="Mobile navigation">
-      {caseStudy.navItems.map((item) => (
-        <a href={`#${item.id}`} class="mobile-nav__link">{item.label}</a>
-      ))}
-      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-        <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
-        <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
-      </button>
-    </nav>
+    <MobileNav items={caseStudy.navItems} />
 
     <div class="page">
       <main class="main-content">
@@ -81,7 +76,7 @@ const displayDescription = projectDescription || description;
               <figure class="cs__figure">
                 <div class={`cs__gallery${section.uniformImages ? ' cs__gallery--uniform' : ''}`}>
                   {section.images.map((src) => (
-                    <img src={src} alt="" />
+                    <img src={src} alt="" loading="lazy" />
                   ))}
                 </div>
                 {section.imageCaption && (
@@ -104,35 +99,10 @@ const displayDescription = projectDescription || description;
         ))}
 
         <!-- Connect -->
-        <section class="cs__section section contact animate" id="connect">
-          <h2 class="section__label">Connect</h2>
-          <div class="contact__content">
-            <p>
-              Open to freelance projects, collaborations, and new opportunities.
-              <br /><strong>Let's talk.</strong>
-            </p>
-            <div class="contact__links">
-              <a href="mailto:danielgrita@gmail.com?subject=Job%20Request">danielgrita@gmail.com</a>
-              <a href="tel:+34623980135">+34 623 980 135</a>
-              <a href="https://www.linkedin.com/in/danielgrita/" target="_blank" rel="noopener">LinkedIn</a>
-              <a href="https://www.instagram.com/danielgrita" target="_blank" rel="noopener">Instagram</a>
-            </div>
-          </div>
-        </section>
+        <Contact />
       </main>
 
-      <!-- Side Navigation -->
-      <nav class="side-nav fade-in" aria-label="Page navigation">
-        <div class="side-nav__inner">
-          {caseStudy.navItems.map((item) => (
-            <a href={`#${item.id}`} class="side-nav__link">{item.label}</a>
-          ))}
-          <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-            <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
-            <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
-          </button>
-        </div>
-      </nav>
+      <SideNav items={caseStudy.navItems} />
     </div>
 
     <!-- Lightbox -->
@@ -144,15 +114,7 @@ const displayDescription = projectDescription || description;
     <!-- Simple layout (no case study) -->
     <div id="top"></div>
 
-    <nav class="mobile-nav" aria-label="Mobile navigation">
-      <a href="#top" class="mobile-nav__link">Top</a>
-      <a href="#description" class="mobile-nav__link">Description</a>
-      <a href="#connect" class="mobile-nav__link">Connect</a>
-      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-        <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
-        <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
-      </button>
-    </nav>
+    <MobileNav items={[{ id: 'top', label: 'Top' }, { id: 'description', label: 'Description' }, { id: 'connect', label: 'Connect' }]} />
 
     <div class="page">
       <main class="main-content">
@@ -183,39 +145,15 @@ const displayDescription = projectDescription || description;
         {galleryImages && galleryImages.length > 0 && (
           <div class="project__gallery">
             {galleryImages.map((src: string) => (
-              <img src={src} alt="" />
+              <img src={src} alt="" loading="lazy" />
             ))}
           </div>
         )}
 
-        <section class="project__section section contact animate" id="connect">
-          <h2 class="section__label">Connect</h2>
-          <div class="contact__content">
-            <p>
-              Open to freelance projects, collaborations, and new opportunities.
-              <br /><strong>Let's talk.</strong>
-            </p>
-            <div class="contact__links">
-              <a href="mailto:danielgrita@gmail.com?subject=Job%20Request">danielgrita@gmail.com</a>
-              <a href="tel:+34623980135">+34 623 980 135</a>
-              <a href="https://www.linkedin.com/in/danielgrita/" target="_blank" rel="noopener">LinkedIn</a>
-              <a href="https://www.instagram.com/danielgrita" target="_blank" rel="noopener">Instagram</a>
-            </div>
-          </div>
-        </section>
+        <Contact />
       </main>
 
-      <nav class="side-nav fade-in" aria-label="Page navigation">
-        <div class="side-nav__inner">
-          <a href="#top" class="side-nav__link">Top</a>
-          <a href="#description" class="side-nav__link">Description</a>
-          <a href="#connect" class="side-nav__link">Connect</a>
-          <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-            <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
-            <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
-          </button>
-        </div>
-      </nav>
+      <SideNav items={[{ id: 'top', label: 'Top' }, { id: 'description', label: 'Description' }, { id: 'connect', label: 'Connect' }]} />
     </div>
   )}
 </Layout>

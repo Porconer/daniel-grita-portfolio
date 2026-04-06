@@ -1,4 +1,16 @@
-export const work = [
+export interface WorkEntry {
+  period: string;
+  title: string;
+  company: string;
+  slug: string;
+  description: string;
+  image: string;
+  projectDescription?: string;
+  projectHero?: string;
+  galleryImages?: string[];
+}
+
+export const work: WorkEntry[] = [
   {
     period: '2024 — Present',
     title: 'Lead Designer',
@@ -70,7 +82,7 @@ Here's a selection of my work from that time.`,
   },
 ];
 
-export const projects = [
+export const projects: WorkEntry[] = [
   {
     period: '2024',
     title: 'Photography & Editorial Design',

@@ -87,7 +87,7 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 - Toggle button placed in side nav, mobile nav, and project pages
 - User preference persisted to `localStorage` under key `theme`
 
-## Session Recap (2026-04-05)
+## Session Recap (2026-04-06)
 
 ### What exists
 - **Main page** (`/`) — Hero, about, two content sections (Work + Projects), contact with sticky side nav and mobile nav. Nav links: Top, About, Work, Projects, Connect. Fixed "Design System" button (bottom-right). Work entry images have `border-radius: var(--radius-md)`.
@@ -121,9 +121,15 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 3. **Toombstone Tavern** — Branding & Identity Design, 2023 (image, project page with hero + 5 gallery images)
 4. **364** — Art Direction, Photoshoot & Editorial, 2023 (image, project page with hero + 6 gallery images)
 
+### Shared components
+- **`src/components/Contact.astro`** — Connect section (email, phone, LinkedIn, Instagram)
+- **`src/components/SideNav.astro`** — Desktop side nav, takes `items: { id, label }[]`
+- **`src/components/MobileNav.astro`** — Mobile top nav, takes `items: { id, label }[]`
+- **`src/components/ThemeToggle.astro`** — Dark mode toggle button (used by SideNav and MobileNav)
+
 ### Shared modules
 - **`src/scripts/scroll-spy.ts`** — Shared scroll-spy with floating dot, used by index, slug, and design-system pages
-- **`global.css`** — Contains shared styles: `.section__label`, `.contact__content`, `.contact__links`, `.fade-in`, `.animate`, `.is-visible`, `.nav-dot`, `.is-active`, `.theme-toggle`. Tokens: `--color-on-accent`, `--color-img-bg`
+- **`global.css`** — Self-hosted Quantico font (`public/fonts/`), shared styles, design tokens
 
 ### Image galleries (case study)
 - Sections can have `images?: string[]` in case study data
@@ -139,6 +145,10 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 - No lightbox on project pages (only case study pages)
 
 ### Still to do
-- SEO improvements (personalized meta, OG tags, sitemap, robots.txt, alt text, canonical URLs, noindex design system)
+- Compress large images (PayXpert JPGs 500KB+, 364 WebPs 1MB+) and standardize all to `.webp`
+- Add `width`/`height` attributes to images (prevents CLS)
+- Add descriptive `alt` text to all gallery images (currently `alt=""`)
+- SEO improvements (personalized meta, OG tags, sitemap via `@astrojs/sitemap`, robots.txt, canonical URLs)
+- Add `<meta name="robots" content="noindex">` to `/design-system`
 - Replace Adobe & Scopio placeholder image with a real one (or add project page content)
 - Consider adding lightbox to project layout galleries

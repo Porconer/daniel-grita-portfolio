@@ -13,9 +13,8 @@ const { title = 'Designer — Portfolio' } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Designer specializing in fintech, UI/UX, and graphic design." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+    <link rel="preload" href="/fonts/quantico-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/quantico-bold.woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
     <script is:inline>
       (function () {

@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SideNav from '../components/SideNav.astro';
+import MobileNav from '../components/MobileNav.astro';
 
 const colors = [
   { name: 'Background', var: '--color-bg', light: '#ffffff', dark: '#121412', hasBorder: true },
@@ -40,16 +42,7 @@ const navItems = [
 <Layout title="Design System — Daniel Grita">
   <div id="top"></div>
 
-  <!-- Mobile Top Navigation -->
-  <nav class="mobile-nav" aria-label="Mobile navigation">
-    {navItems.map((item) => (
-      <a href={`#${item.id}`} class="mobile-nav__link">{item.label}</a>
-    ))}
-    <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-      <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
-      <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
-    </button>
-  </nav>
+  <MobileNav items={navItems} />
 
   <div class="page">
     <main class="main-content">
@@ -296,18 +289,7 @@ const navItems = [
       </section>
     </main>
 
-    <!-- Side Navigation -->
-    <nav class="side-nav fade-in" aria-label="Page navigation">
-      <div class="side-nav__inner">
-        {navItems.map((item) => (
-          <a href={`#${item.id}`} class="side-nav__link">{item.label}</a>
-        ))}
-        <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-          <span class="theme-toggle__icon theme-toggle__icon--light">☀</span>
-          <span class="theme-toggle__icon theme-toggle__icon--dark">☾</span>
-        </button>
-      </div>
-    </nav>
+    <SideNav items={navItems} />
   </div>
 
   <a href="/" class="ds-link">&larr; Portfolio</a>
