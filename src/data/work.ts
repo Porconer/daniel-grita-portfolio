@@ -10,30 +10,6 @@ export const work = [
 
   },
   {
-    period: '2024',
-    title: 'Photoshoot & Video Production',
-    company: 'Oppressus',
-    slug: 'oppressus',
-    description:
-      'Had the privilege of producing and directing the photoshoot and launch video for these amazing shoes.',
-    projectDescription: `I had the privilege of producing and directing the photoshoot and launch video for these amazing shoes.
-
-Inspired by dark periods of life and brutalist architecture, the design features a powerful aesthetic with predominant shades of black and grey. Small details of light signify hope, offering a glimmer of brightness amidst the darkness.
-
-My role was to capture the essence of this concept through striking visuals that highlight the shoes' unique blend of resilience and elegance. Explore our collection to experience this compelling fusion of art and fashion.`,
-    image: '/images/oppressus.avif',
-
-    projectHero: '/images/oppressus-hero.webp',
-    galleryImages: [
-      '/images/oppressus-gallery-01.webp',
-      '/images/oppressus-gallery-02.webp',
-      '/images/oppressus-gallery-03.webp',
-      '/images/oppressus-gallery-04.webp',
-      '/images/oppressus-gallery-05.webp',
-      '/images/oppressus-gallery-06.webp',
-    ],
-  },
-  {
     period: '2023 — 2024',
     title: 'In-House Designer',
     company: 'Signature Spa Consulting',
@@ -120,6 +96,30 @@ To play around with different textures, colours and overlapping images/typograph
       '/images/concession-gallery-07.webp',
       '/images/concession-gallery-08.webp',
       '/images/concession-gallery-09.webp',
+    ],
+  },
+  {
+    period: '2024',
+    title: 'Photoshoot & Video Production',
+    company: 'Oppressus',
+    slug: 'oppressus',
+    description:
+      'Had the privilege of producing and directing the photoshoot and launch video for these amazing shoes.',
+    projectDescription: `I had the privilege of producing and directing the photoshoot and launch video for these amazing shoes.
+
+Inspired by dark periods of life and brutalist architecture, the design features a powerful aesthetic with predominant shades of black and grey. Small details of light signify hope, offering a glimmer of brightness amidst the darkness.
+
+My role was to capture the essence of this concept through striking visuals that highlight the shoes' unique blend of resilience and elegance. Explore our collection to experience this compelling fusion of art and fashion.`,
+    image: '/images/oppressus.avif',
+
+    projectHero: '/images/oppressus-hero.webp',
+    galleryImages: [
+      '/images/oppressus-gallery-01.webp',
+      '/images/oppressus-gallery-02.webp',
+      '/images/oppressus-gallery-03.webp',
+      '/images/oppressus-gallery-04.webp',
+      '/images/oppressus-gallery-05.webp',
+      '/images/oppressus-gallery-06.webp',
     ],
   },
   {
