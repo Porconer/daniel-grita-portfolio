@@ -16,3 +16,44 @@ const { items } = Astro.props;
     <ThemeToggle />
   </div>
 </nav>
+
+<style>
+  .side-nav {
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    transition-delay: 0.5s;
+  }
+
+  .side-nav.is-visible {
+    opacity: 1;
+  }
+
+  .side-nav__inner {
+    position: sticky;
+    top: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: right;
+  }
+
+  .side-nav__link {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: 0.125rem 0;
+    transition: color 0.2s ease;
+  }
+
+  .side-nav__link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .side-nav {
+      display: none;
+    }
+  }
+</style>
