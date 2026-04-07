@@ -14,6 +14,9 @@ export function getStaticPaths() {
 }
 
 const { title, company, period, description, image, slug, projectHero, galleryImages, projectDescription } = Astro.props;
+const entry = allEntries.find((e) => e.slug === slug);
+const galleryLayout = entry?.galleryLayout;
+const gallerySections = entry?.gallerySections;
 const caseStudy = caseStudies[slug];
 const displayDescription = projectDescription || description;
 ---
@@ -74,7 +77,7 @@ const displayDescription = projectDescription || description;
 
             {section.images && section.images.length > 0 ? (
               <figure class="cs__figure">
-                <div class={`cs__gallery${section.uniformImages ? ' cs__gallery--uniform' : ''}`}>
+                <div class={`cs__gallery${section.uniformImages ? ' cs__gallery--uniform' : ''}${section.galleryLayout === 'stacked-right' ? ' cs__gallery--stacked-right' : ''}`}>
                   {section.images.map((src) => (
                     <img src={src} alt="" loading="lazy" />
                   ))}
@@ -134,26 +137,48 @@ const displayDescription = projectDescription || description;
           <p class="project__role">{title}</p>
         </header>
 
-        <section id="description">
-          <div class="project__description">
-            {displayDescription.split('\n\n').map((paragraph: string) => (
-              <p>{paragraph}</p>
-            ))}
-          </div>
-        </section>
+        {!gallerySections && (
+          <section id="description">
+            <div class="project__description">
+              {displayDescription.split('\n\n').map((paragraph: string) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          </section>
+        )}
 
-        {galleryImages && galleryImages.length > 0 && (
-          <div class="project__gallery">
+        {gallerySections ? (
+          <section id="description" class="project__content">
+            {gallerySections.map((section) => (
+              <div class="project__content-block">
+                {section.text && <p class="project__gallery-text">{section.text}</p>}
+                <div class:list={['project__gallery', { 'project__gallery--single': section.images.length === 1, 'project__gallery--cropped': section.images.length > 1 }]}>
+                  {section.images.map((src: string, i: number) => (
+                    <img src={src} alt={section.alts?.[i] || ''} loading="lazy" />
+                  ))}
+                </div>
+                {section.title && <p class="cs__caption">{section.title}</p>}
+              </div>
+            ))}
+          </section>
+        ) : galleryImages && galleryImages.length > 0 ? (
+          <div class:list={['project__gallery', { 'project__gallery--stacked-right': galleryLayout === 'stacked-right' }]}>
             {galleryImages.map((src: string) => (
               <img src={src} alt="" loading="lazy" />
             ))}
           </div>
-        )}
+        ) : null}
 
         <Contact />
       </main>
 
       <SideNav items={[{ id: 'top', label: 'Top' }, { id: 'description', label: 'Description' }, { id: 'connect', label: 'Connect' }]} />
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" aria-hidden="true">
+      <button class="lightbox__close" type="button" aria-label="Close image">&times;</button>
+      <img class="lightbox__img" src="" alt="" />
     </div>
   )}
 </Layout>
@@ -284,6 +309,18 @@ const displayDescription = projectDescription || description;
     aspect-ratio: 4 / 3;
   }
 
+  .cs__gallery--stacked-right {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .cs__gallery--stacked-right img:first-child {
+    grid-row: 1 / -1;
+    height: 0;
+    min-height: 100%;
+    object-fit: cover;
+  }
+
   .cs__caption {
     text-align: center;
     font-size: 0.875rem;
@@ -295,6 +332,14 @@ const displayDescription = projectDescription || description;
   @media (max-width: 768px) {
     .cs__gallery {
       grid-template-columns: 1fr;
+    }
+
+    .cs__gallery--stacked-right {
+      grid-template-rows: auto;
+    }
+
+    .cs__gallery--stacked-right img:first-child {
+      grid-row: auto;
     }
   }
 
@@ -477,6 +522,22 @@ const displayDescription = projectDescription || description;
     line-height: 1.7;
   }
 
+  .project__content {
+    margin-top: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-content-gap);
+  }
+
+  .project__gallery-text {
+    line-height: 1.7;
+    margin-bottom: var(--space-content-gap);
+  }
+
+  .project__content-block .project__gallery {
+    margin-top: 0;
+  }
+
   .project__gallery {
     margin-top: var(--space-lg);
     display: grid;
@@ -494,10 +555,39 @@ const displayDescription = projectDescription || description;
     border-radius: var(--radius-md);
   }
 
+  .project__gallery--stacked-right img:nth-child(n+4):nth-child(-n+10) {
+    height: 550px;
+  }
+
+  .project__gallery--stacked-right {
+    grid-template-rows: auto auto;
+  }
+
+  .project__gallery--stacked-right img:first-child {
+    grid-row: 1 / 3;
+    height: 0;
+    min-height: 100%;
+    object-fit: cover;
+  }
+
   @media (max-width: 768px) {
     .project__gallery {
       grid-template-columns: 1fr;
     }
+
+    .project__gallery--stacked-right {
+      grid-template-rows: auto;
+    }
+
+    .project__gallery--stacked-right img:first-child {
+      grid-row: auto;
+      height: auto;
+      min-height: 0;
+    }
+  }
+
+  .main-content > :global(.section.contact) {
+    margin-top: var(--space-xl);
   }
 
   /* ------------------------------------------------
@@ -505,7 +595,8 @@ const displayDescription = projectDescription || description;
      ------------------------------------------------ */
 
   .cs__gallery img,
-  .cs__hero img {
+  .cs__hero img,
+  .project__gallery img {
     cursor: zoom-in;
   }
 
@@ -595,7 +686,7 @@ const displayDescription = projectDescription || description;
   const lightboxImg = document.querySelector('.lightbox__img') as HTMLImageElement | null;
 
   if (lightbox && lightboxImg) {
-    document.querySelectorAll('.cs__gallery img, .cs__hero img').forEach((img) => {
+    document.querySelectorAll('.cs__gallery img, .cs__hero img, .project__gallery img').forEach((img) => {
       img.addEventListener('click', () => {
         lightboxImg.src = (img as HTMLImageElement).src;
         lightbox.classList.add('is-open');

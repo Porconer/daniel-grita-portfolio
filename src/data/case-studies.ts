@@ -13,6 +13,7 @@ export interface CaseStudySection {
   images?: string[];
   imageCaption?: string;
   uniformImages?: boolean;
+  galleryLayout?: 'stacked-right';
 }
 
 export interface CaseStudy {
@@ -76,11 +77,11 @@ export const caseStudies: Record<string, CaseStudy> = {
               'Move from a fragmented look to a unified identity that supports global growth.',
           },
         ],
+        galleryLayout: 'stacked-right',
         images: [
           '/images/payxpert-old-01.webp',
           '/images/payxpert-old-04.webp',
           '/images/payxpert-old-02.webp',
-          '/images/payxpert-old-03.webp',
         ],
         imageCaption: 'Previous social media assets and website before the rebrand.',
       },
@@ -144,6 +145,7 @@ export const caseStudies: Record<string, CaseStudy> = {
               'Established a style that allows for evolution while maintaining strict consistency with brand colors.',
           },
         ],
+        galleryLayout: 'stacked-right',
         images: [
           '/images/payxpert-social-01.webp',
           '/images/payxpert-social-02.webp',

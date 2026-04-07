@@ -1,3 +1,10 @@
+export interface GallerySection {
+  title?: string;
+  text?: string;
+  images: string[];
+  alts?: string[];
+}
+
 export interface WorkEntry {
   period: string;
   title: string;
@@ -8,6 +15,8 @@ export interface WorkEntry {
   projectDescription?: string;
   projectHero?: string;
   galleryImages?: string[];
+  galleryLayout?: 'stacked-right';
+  gallerySections?: GallerySection[];
 }
 
 export const work: WorkEntry[] = [
@@ -18,7 +27,7 @@ export const work: WorkEntry[] = [
     slug: 'payxpert',
     description:
       'Leading the design at PayXpert, an omnichannel payment solution based in France and Spain. Leading a comprehensive rebranding, transitioning the company from a fragmented identity to a modern, unified system. Balancing complex fintech technical requirements with clean, impactful aesthetics.',
-    image: '/images/payxpert.jpg',
+    image: '/images/payxpert.webp',
 
   },
   {
@@ -40,18 +49,31 @@ Here's a selection of my work from this period.`,
     image: '/images/signature-spa-gallery-01.webp',
 
     projectHero: '/images/signature-spa-gallery-01.webp',
-    galleryImages: [
-      '/images/signature-spa-gallery-03.webp',
-      '/images/signature-spa-gallery-06.webp',
-      '/images/signature-spa-hero.webp',
-      '/images/signature-spa-gallery-11.webp',
-      '/images/signature-spa-gallery-04.webp',
-      '/images/signature-spa-gallery-05.webp',
-      '/images/signature-spa-gallery-02.webp',
-      '/images/signature-spa-gallery-07.webp',
-      '/images/signature-spa-gallery-08.webp',
-      '/images/signature-spa-gallery-09.webp',
-      '/images/signature-spa-gallery-10.webp',
+    gallerySections: [
+      {
+        title: 'Web Design',
+        images: ['/images/signature-spa-gallery-03.webp'],
+        alts: ['Selection of 4 landing pages'],
+      },
+      {
+        title: 'Social Media',
+        images: ['/images/signature-spa-gallery-06.webp'],
+        alts: ['Selection of instagram posts'],
+      },
+      {
+        title: 'Photography',
+        images: [
+          '/images/signature-spa-hero.webp',
+          '/images/signature-spa-gallery-02.webp',
+          '/images/signature-spa-gallery-04.webp',
+          '/images/signature-spa-gallery-05.webp',
+          '/images/signature-spa-gallery-07.webp',
+          '/images/signature-spa-gallery-08.webp',
+          '/images/signature-spa-gallery-09.webp',
+          '/images/signature-spa-gallery-10.webp',
+          '/images/signature-spa-gallery-11.webp',
+        ],
+      },
     ],
   },
   {
@@ -61,23 +83,35 @@ Here's a selection of my work from this period.`,
     slug: 'lash-paris',
     description:
       'Lash Paris, a beauty products company in Breda, Holland, was my introduction to the world of beauty, fashion, and content creation. During my two years there, I focused on creating content for the website and social media, showcasing products and their applications. Also gained my first experience managing photoshoots with models.',
-    projectDescription: `Lash Paris, a beauty products company in Breda, Holland, was my introduction to the world of beauty, fashion, and content creation.
-
-During my year there, I focused on creating content for the website and social media, showcasing products and their applications. I also gained my first experience managing photoshoots with models.
-
-Here's a selection of my work from that time.`,
+    projectDescription: `Lash Paris, a beauty products company based in Breda, Holland, was my first step into the world of beauty and content creation. Over two years I shaped the brand's visual identity — from product photography and packaging to social media content and illustrated graphics.`,
     image: '/images/lash-paris-hero.webp',
 
     projectHero: '/images/lash-paris-hero.webp',
-    galleryImages: [
-      '/images/lash-paris-gallery-01.webp',
-      '/images/lash-paris-gallery-02.webp',
-      '/images/lash-paris-gallery-03.webp',
-      '/images/lash-paris-gallery-04.webp',
-      '/images/lash-paris-gallery-05.webp',
-      '/images/lash-paris-gallery-06.webp',
-      '/images/lash-paris-gallery-07.webp',
-      '/images/lash-paris-gallery-08.webp',
+    gallerySections: [
+      {
+        text: 'A big part of my role was product photography. I styled and shot the full range — lash kits, tools, and accessories — creating images that worked across the website, social media, and marketing materials.',
+        images: [
+          '/images/lash-paris-gallery-05.webp',
+          '/images/lash-paris-gallery-08.webp',
+        ],
+      },
+      {
+        text: 'I also created illustrated content for social media, breaking down lash anatomy and techniques into simple, engaging visuals that helped educate Lash Paris\'s audience.',
+        title: 'Illustrations for social media content',
+        images: [
+          '/images/lash-paris-gallery-02.webp',
+          '/images/lash-paris-gallery-04.webp',
+        ],
+      },
+      {
+        text: 'Beyond content creation, I worked closely on packaging design and branding elements — developing the visual language that tied the product line together.',
+        images: [
+          '/images/lash-paris-gallery-03.webp',
+          '/images/lash-paris-gallery-06.webp',
+          '/images/lash-paris-gallery-07.webp',
+          '/images/lash-paris-gallery-01.webp',
+        ],
+      },
     ],
   },
 ];
@@ -100,10 +134,10 @@ To play around with different textures, colours and overlapping images/typograph
     projectHero: '/images/concession-hero.webp',
     galleryImages: [
       '/images/concession-gallery-01.webp',
-      '/images/concession-gallery-02.webp',
       '/images/concession-gallery-03.webp',
       '/images/concession-gallery-04.webp',
       '/images/concession-gallery-05.webp',
+      '/images/concession-gallery-02.webp',
       '/images/concession-gallery-06.webp',
       '/images/concession-gallery-07.webp',
       '/images/concession-gallery-08.webp',
@@ -122,7 +156,7 @@ To play around with different textures, colours and overlapping images/typograph
 Inspired by dark periods of life and brutalist architecture, the design features a powerful aesthetic with predominant shades of black and grey. Small details of light signify hope, offering a glimmer of brightness amidst the darkness.
 
 My role was to capture the essence of this concept through striking visuals that highlight the shoes' unique blend of resilience and elegance. Explore our collection to experience this compelling fusion of art and fashion.`,
-    image: '/images/oppressus.avif',
+    image: '/images/oppressus.webp',
 
     projectHero: '/images/oppressus-hero.webp',
     galleryImages: [

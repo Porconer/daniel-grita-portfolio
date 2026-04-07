@@ -104,7 +104,7 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
   - `work` — Professional entries shown in the Work section on the landing page
   - `projects` — Personal/side projects shown in the Projects section
   - `allEntries` — Combined array used by `[slug].astro` for `getStaticPaths()`
-- Each entry can have: `period`, `title`, `company`, `slug`, `description`, `image`, and optionally `projectDescription` (extended text for project page), `projectHero` (hero image on project page), `galleryImages` (gallery array)
+- Each entry can have: `period`, `title`, `company`, `slug`, `description`, `image`, and optionally `projectDescription` (extended text for project page), `projectHero` (hero image on project page), `galleryImages` (flat gallery array), `gallerySections` (grouped galleries with optional `title`, `text`, `images`, `alts`), `galleryLayout` (`'stacked-right'`)
 - `image` is used for the landing page thumbnail. Entries with `work-` in the image path are treated as placeholders (no image shown, no link in Projects section)
 - `projectDescription` falls back to `description` on the project page via `displayDescription`
 - Helper functions in index frontmatter: `hasProjectPage()` checks `projectDescription || projectHero`; `linkLabel()` returns "View use case →" or "View project →" based on case study data
@@ -112,8 +112,8 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 ### Work section entries (landing page)
 1. **PayXpert** — Lead Designer, 2024–Present (image, **has case study**, "View use case →")
 2. **Oppressus** — Photoshoot & Video Production, 2024 (image, project page with hero + 6 gallery images)
-3. **Signature Spa Consulting** — In-House Designer, 2023–2024 (image: indoor pool model, project page with hero + 11 gallery images)
-4. **Lash Paris** — Content Creator & Designer, 2021–2023 (image: beauty portrait, project page with hero + 8 gallery images)
+3. **Signature Spa Consulting** — In-House Designer, 2023–2024 (image: indoor pool model, project page with hero + gallerySections: Web Design, Social Media, Photography)
+4. **Lash Paris** — Content Creator & Designer, 2021–2023 (image: beauty portrait, project page with hero + gallerySections: 3 narrative blocks with interleaved text and galleries, caption on social media section)
 
 ### Projects section entries (landing page)
 1. **Concession Perpetuelle** — Photography & Editorial Design, 2024 (image, project page with hero + 9 gallery images)
@@ -137,18 +137,28 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 - `images` undefined = shows grey placeholder
 - `images` with entries = horizontal gallery grid inside a light grey box, wrapped in `<figure>` with optional `<figcaption>`
 - `uniformImages?: boolean` = forces `aspect-ratio: 4/3`
+- `galleryLayout?: 'stacked-right'` = first image spans full height on the left
 - **Lightbox** — clicking any gallery or hero image opens fullscreen overlay. Close via X, backdrop click, or Escape
 
 ### Image galleries (project layout)
 - 2-column grid with `--color-img-bg` background and `--radius-lg` border radius
 - Stacks to single column on mobile
-- No lightbox on project pages (only case study pages)
+- **Lightbox** supported on project pages
+- **`gallerySections`** — grouped galleries with optional `text` (paragraph above gallery), `title` (caption below gallery using `.cs__caption`), and `alts`
+- When `gallerySections` is used, the description section is hidden (text lives in the gallery sections instead)
+- Internal spacing uses `--space-content-gap` (2rem) between elements within a section
+
+### Key design tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--space-content-gap` | `2rem` | Gap between elements within a section |
+| `--space-md` | `2rem` | General medium spacing |
+| `--space-sm` | `1rem` | Small spacing, caption margins |
 
 ### Still to do
-- Compress large images (PayXpert JPGs 500KB+, 364 WebPs 1MB+) and standardize all to `.webp`
 - Add `width`/`height` attributes to images (prevents CLS)
 - Add descriptive `alt` text to all gallery images (currently `alt=""`)
 - SEO improvements (personalized meta, OG tags, sitemap via `@astrojs/sitemap`, robots.txt, canonical URLs)
 - Add `<meta name="robots" content="noindex">` to `/design-system`
 - Replace Adobe & Scopio placeholder image with a real one (or add project page content)
-- Consider adding lightbox to project layout galleries

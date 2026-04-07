@@ -63,6 +63,7 @@
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
+  --space-content-gap: 2rem;
   --space-lg: 4rem;
   --space-xl: 6rem;
   --space-2xl: 10rem;
@@ -182,6 +183,24 @@ p {
 
 .section:last-child {
   margin-bottom: 0;
+}
+
+/* ------------------------------------------------
+   Gallery variants
+   ------------------------------------------------ */
+
+.project__gallery--single {
+  display: block;
+}
+
+.project__gallery--single img {
+  width: 100%;
+  height: auto;
+}
+
+.project__gallery--cropped img {
+  height: 550px;
+  object-fit: cover;
 }
 
 /* ------------------------------------------------
