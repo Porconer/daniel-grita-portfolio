@@ -87,16 +87,16 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 - Toggle button placed in side nav, mobile nav, and project pages
 - User preference persisted to `localStorage` under key `theme`
 
-## Session Recap (2026-04-06)
+## Session Recap (2026-04-08)
 
 ### What exists
 - **Main page** (`/`) — Hero, about, two content sections (Work + Projects), contact with sticky side nav and mobile nav. Nav links: Top, About, Work, Projects, Connect. Fixed "Design System" button (bottom-right). Work entry images have `border-radius: var(--radius-md)`.
 - **Project pages** (`/work/[slug]`) — Three layout modes:
   - **Case study layout** (PayXpert) — Full flowing page with hero image, 8 content sections, image galleries with lightbox, cards, accent highlight banner, and Connect section. Link text: "View use case →".
-  - **Project layout** (Oppressus, Signature Spa, Lash Paris, Concession Perpetuelle, Toombstone Tavern, 364) — Hero image, multi-paragraph description (split on `\n\n`), 2-column image gallery, Connect section, side nav (Top/Description/Connect) + mobile nav + theme toggle.
+  - **Project layout** (Oppressus, Signature Spa, Lash Paris, Concession Perpetuelle, Toombstone Tavern, 364) — Header (title/date/role) above hero image, narrative gallery sections with interleaved text, Connect section, side nav + mobile nav + theme toggle.
   - **Minimal layout** (Adobe & Scopio) — Same structure as project layout but no hero, gallery, or extended description since those fields are absent.
 - **Case study data** in `src/data/case-studies.ts` — Structured per-section content. Keyed by slug; `[slug].astro` checks for case study data and renders accordingly.
-- **Design system** (`/design-system`) — Full living reference page. Dark mode fully supported.
+- **Design system** (`/design-system`) — Full living reference page with Mobile Navigation component sample. Dark mode fully supported.
 - **Dark mode** — Full implementation with toggle, localStorage persistence, system preference fallback
 
 ### Data architecture
@@ -104,19 +104,21 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
   - `work` — Professional entries shown in the Work section on the landing page
   - `projects` — Personal/side projects shown in the Projects section
   - `allEntries` — Combined array used by `[slug].astro` for `getStaticPaths()`
-- Each entry can have: `period`, `title`, `company`, `slug`, `description`, `image`, and optionally `projectDescription` (extended text for project page), `projectHero` (hero image on project page), `galleryImages` (flat gallery array), `gallerySections` (grouped galleries with optional `title`, `text`, `images`, `alts`), `galleryLayout` (`'stacked-right'`)
+- **`WorkEntry` interface** fields: `period`, `title`, `company`, `slug`, `description`, `image`, and optionally `projectDescription`, `projectHero`, `heroLandscape` (boolean, forces 16:9 crop on hero), `uniformImages` (boolean, forces 3:4 on gallery images), `galleryImages` (flat gallery array), `gallerySections` (grouped galleries with optional `title`, `text`, `images`, `alts`, `aspectRatio`), `galleryLayout` (`'stacked-right'`)
+- **`GallerySection` interface** fields: `title?`, `text?`, `images`, `alts?`, `aspectRatio?` (inline CSS aspect-ratio per section, e.g. `'1/1'`)
 - `image` is used for the landing page thumbnail. Entries with `work-` in the image path are treated as placeholders (no image shown, no link in Projects section)
 - `projectDescription` falls back to `description` on the project page via `displayDescription`
 - Helper functions in index frontmatter: `hasProjectPage()` checks `projectDescription || projectHero`; `linkLabel()` returns "View use case →" or "View project →" based on case study data
+- **Important:** In `[slug].astro`, complex fields (`gallerySections`, `uniformImages`, `heroLandscape`, `galleryLayout`) must be read via `allEntries.find()`, NOT destructured from `Astro.props` (Astro prop serialization silently drops them)
 
 ### Work section entries (landing page)
 1. **PayXpert** — Lead Designer, 2024–Present (image, **has case study**, "View use case →")
-2. **Oppressus** — Photoshoot & Video Production, 2024 (image, project page with hero + 6 gallery images)
-3. **Signature Spa Consulting** — In-House Designer, 2023–2024 (image: indoor pool model, project page with hero + gallerySections: Web Design, Social Media, Photography)
-4. **Lash Paris** — Content Creator & Designer, 2021–2023 (image: beauty portrait, project page with hero + gallerySections: 3 narrative blocks with interleaved text and galleries, caption on social media section)
+2. **Oppressus** — Photoshoot & Video Production, 2024 (image, project page with hero + 6 gallery images, `uniformImages: true` → 3:4 aspect ratio)
+3. **Signature Spa Consulting** — In-House Designer, 2023–2024 (image, project page with hero + gallerySections: 3 sections with narrative text, descriptive captions, Photography section has `--cropped` images)
+4. **Lash Paris** — Content Creator & Designer, 2021–2023 (image, project page with hero + gallerySections: 3 narrative blocks with interleaved text and galleries)
 
 ### Projects section entries (landing page)
-1. **Concession Perpetuelle** — Photography & Editorial Design, 2024 (image, project page with hero + 9 gallery images)
+1. **Concession Perpetuelle** — Photography & Editorial Design, 2024 (image, project page with landscape hero cover, gallerySections: Editorial design (4 images) + The printed book (4 images, `aspectRatio: '1/1'`))
 2. **Adobe & Scopio** — Creative Art Direction & Photography, April 2024 (**placeholder image**, no link, no project page content)
 3. **Toombstone Tavern** — Branding & Identity Design, 2023 (image, project page with hero + 5 gallery images)
 4. **364** — Art Direction, Photoshoot & Editorial, 2023 (image, project page with hero + 6 gallery images)
@@ -125,7 +127,7 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 - **`src/components/Contact.astro`** — Connect section (email, phone, LinkedIn, Instagram)
 - **`src/components/SideNav.astro`** — Desktop side nav, takes `items: { id, label }[]`
 - **`src/components/MobileNav.astro`** — Mobile top nav, takes `items: { id, label }[]`
-- **`src/components/ThemeToggle.astro`** — Dark mode toggle button (used by SideNav and MobileNav)
+- **`src/components/ThemeToggle.astro`** — Dark mode toggle button (used by SideNav, MobileNav, and design system). Sun icon uses `U+FE0E` variation selector to prevent emoji rendering on iPad/iOS.
 
 ### Shared modules
 - **`src/scripts/scroll-spy.ts`** — Shared scroll-spy with floating dot, used by index, slug, and design-system pages
@@ -142,9 +144,12 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 
 ### Image galleries (project layout)
 - 2-column grid with `--color-img-bg` background and `--radius-lg` border radius
+- Single-image galleries (`--single`) use `grid-template-columns: 1fr` to fill full width
+- Per-section `aspectRatio` applied via inline style (e.g. `'1/1'` for square)
+- `uniformImages` on entry applies `aspect-ratio: 3/4` to all gallery images
 - Stacks to single column on mobile
 - **Lightbox** supported on project pages
-- **`gallerySections`** — grouped galleries with optional `text` (paragraph above gallery), `title` (caption below gallery using `.cs__caption`), and `alts`
+- **`gallerySections`** — grouped galleries with optional `text` (paragraph above gallery), `title` (caption below gallery using `.cs__caption`), `alts`, and `aspectRatio`
 - When `gallerySections` is used, the description section is hidden (text lives in the gallery sections instead)
 - Internal spacing uses `--space-content-gap` (2rem) between elements within a section
 
@@ -155,6 +160,9 @@ When adding new styles, use existing CSS custom properties rather than hardcoded
 | `--space-content-gap` | `2rem` | Gap between elements within a section |
 | `--space-md` | `2rem` | General medium spacing |
 | `--space-sm` | `1rem` | Small spacing, caption margins |
+
+### Content style
+- No em dashes in prose/descriptions. Use commas, periods, or sentence restructuring instead.
 
 ### Still to do
 - Add `width`/`height` attributes to images (prevents CLS)

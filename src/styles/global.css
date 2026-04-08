@@ -198,10 +198,6 @@ p {
   height: auto;
 }
 
-.project__gallery--cropped img {
-  height: 550px;
-  object-fit: cover;
-}
 
 /* ------------------------------------------------
    Responsive

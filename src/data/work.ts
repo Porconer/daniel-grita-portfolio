@@ -3,6 +3,7 @@ export interface GallerySection {
   text?: string;
   images: string[];
   alts?: string[];
+  aspectRatio?: string;
 }
 
 export interface WorkEntry {
@@ -14,6 +15,8 @@ export interface WorkEntry {
   image: string;
   projectDescription?: string;
   projectHero?: string;
+  heroLandscape?: boolean;
+  uniformImages?: boolean;
   galleryImages?: string[];
   galleryLayout?: 'stacked-right';
   gallerySections?: GallerySection[];
@@ -37,31 +40,26 @@ export const work: WorkEntry[] = [
     slug: 'signature-spa-consulting',
     description:
       'Worked as the in-house designer at Signature Spa Consulting, a luxury spa chain in Barcelona, Andorra, and Sitges. A major boost for my career, giving me the chance to take on many responsibilities, grow my skills, and get to know the beauty and holistic industry better.',
-    projectDescription: `Over the past 18 months, I worked at Signature Spa Consulting, a luxury spa chain in Barcelona, Andorra, and Sitges.
-
-This role was a major boost for my career, giving me the chance to take on many responsibilities and grow my skills.
-
-As the in-house designer, I handled all the design work, from printing brochures and menus to maintaining and updating our websites. I also created content (photos, videos, graphics and newsletters) for our websites and social media platforms like Instagram and LinkedIn.
-
-I learned a lot about social media management and developed brand and marketing strategies. One of my favorite parts of the job was creating campaigns for special occasions like Valentine's Day and Christmas, selecting and working with influencers and models.
-
-Here's a selection of my work from this period.`,
+    projectDescription: `Throughout 2023 and 2024, I worked at Signature Spa Consulting, a luxury spa chain in Barcelona, Andorra, and Sitges. This role, as the in-house designer, was a major boost for my career, giving me the chance to take on many responsibilities and grow my skills and get to know the beauty and holistic industry better.`,
     image: '/images/signature-spa-gallery-01.webp',
 
     projectHero: '/images/signature-spa-gallery-01.webp',
     gallerySections: [
       {
-        title: 'Web Design',
+        text: 'Throughout 2023 and 2024, I worked at Signature Spa Consulting, a luxury spa chain in Barcelona, Andorra, and Sitges. As the in-house designer, I handled all the design work, from printing brochures and menus to maintaining and updating the websites.',
+        title: 'Selection of landing pages made for Signature Spa',
         images: ['/images/signature-spa-gallery-03.webp'],
         alts: ['Selection of 4 landing pages'],
       },
       {
-        title: 'Social Media',
+        text: 'I also created content for our social media platforms like Instagram and LinkedIn, and developed brand and marketing strategies, including campaigns for occasions like Valentine\'s Day and Christmas.',
+        title: 'Selection of social media posts made for Signature Spa',
         images: ['/images/signature-spa-gallery-06.webp'],
         alts: ['Selection of instagram posts'],
       },
       {
-        title: 'Photography',
+        text: 'This role was a major boost for my career, giving me the chance to take on many responsibilities, grow my skills, and get to know the beauty and holistic industry better. Here\'s a selection of photography from this period.',
+        title: 'Selection of model photography for Signature Spa',
         images: [
           '/images/signature-spa-hero.webp',
           '/images/signature-spa-gallery-02.webp',
@@ -83,13 +81,13 @@ Here's a selection of my work from this period.`,
     slug: 'lash-paris',
     description:
       'Lash Paris, a beauty products company in Breda, Holland, was my introduction to the world of beauty, fashion, and content creation. During my two years there, I focused on creating content for the website and social media, showcasing products and their applications. Also gained my first experience managing photoshoots with models.',
-    projectDescription: `Lash Paris, a beauty products company based in Breda, Holland, was my first step into the world of beauty and content creation. Over two years I shaped the brand's visual identity — from product photography and packaging to social media content and illustrated graphics.`,
+    projectDescription: `Lash Paris, a beauty products company based in Breda, Holland, was my first step into the world of beauty and content creation. Over two years I shaped the brand's visual identity, from product photography and packaging to social media content and illustrated graphics.`,
     image: '/images/lash-paris-hero.webp',
 
     projectHero: '/images/lash-paris-hero.webp',
     gallerySections: [
       {
-        text: 'A big part of my role was product photography. I styled and shot the full range — lash kits, tools, and accessories — creating images that worked across the website, social media, and marketing materials.',
+        text: 'A big part of my role was product photography. I styled and shot the full range of lash kits, tools, and accessories, creating images that worked across the website, social media, and marketing materials.',
         images: [
           '/images/lash-paris-gallery-05.webp',
           '/images/lash-paris-gallery-08.webp',
@@ -104,7 +102,7 @@ Here's a selection of my work from this period.`,
         ],
       },
       {
-        text: 'Beyond content creation, I worked closely on packaging design and branding elements — developing the visual language that tied the product line together.',
+        text: 'Beyond content creation, I worked closely on packaging design and branding elements, developing the visual language that tied the product line together.',
         images: [
           '/images/lash-paris-gallery-03.webp',
           '/images/lash-paris-gallery-06.webp',
@@ -131,17 +129,30 @@ I designed this book as an exercise for practising my layout and editorial skill
 To play around with different textures, colours and overlapping images/typography. Even though I am happy with this project, I intend to keep on working on it.`,
     image: '/images/concession-hero.webp',
 
-    projectHero: '/images/concession-hero.webp',
-    galleryImages: [
-      '/images/concession-gallery-01.webp',
-      '/images/concession-gallery-03.webp',
-      '/images/concession-gallery-04.webp',
-      '/images/concession-gallery-05.webp',
-      '/images/concession-gallery-02.webp',
-      '/images/concession-gallery-06.webp',
-      '/images/concession-gallery-07.webp',
-      '/images/concession-gallery-08.webp',
-      '/images/concession-gallery-09.webp',
+    projectHero: '/images/concession-hero-cover.webp',
+    heroLandscape: true,
+    gallerySections: [
+      {
+        text: 'A personal project born from documenting cemeteries in the cities I lived and visited. Drawn to the mysteries and mysticism of these places, I gathered a large set of images over several trips and decided to turn them into a book.',
+        title: 'Editorial design',
+        images: [
+          '/images/concession-index-page.webp',
+          '/images/concession-inside-page.webp',
+          '/images/concession-double-page.webp',
+          '/images/concession-echoes-section.webp',
+        ],
+      },
+      {
+        text: 'I designed this book as an exercise for practising my layout and editorial skills, playing with different textures, colours, and overlapping images and typography.',
+        title: 'The printed book',
+        aspectRatio: '1/1',
+        images: [
+          '/images/concession-mistery-section.webp',
+          '/images/concession-holding-book.webp',
+          '/images/concession-holding-index.webp',
+          '/images/concession-pointing-end.webp',
+        ],
+      },
     ],
   },
   {
@@ -159,6 +170,7 @@ My role was to capture the essence of this concept through striking visuals that
     image: '/images/oppressus.webp',
 
     projectHero: '/images/oppressus-hero.webp',
+    uniformImages: true,
     galleryImages: [
       '/images/oppressus-gallery-01.webp',
       '/images/oppressus-gallery-02.webp',

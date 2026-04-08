@@ -17,6 +17,8 @@ const { title, company, period, description, image, slug, projectHero, galleryIm
 const entry = allEntries.find((e) => e.slug === slug);
 const galleryLayout = entry?.galleryLayout;
 const gallerySections = entry?.gallerySections;
+const uniformImages = entry?.uniformImages;
+const heroLandscape = entry?.heroLandscape;
 const caseStudy = caseStudies[slug];
 const displayDescription = projectDescription || description;
 ---
@@ -125,17 +127,17 @@ const displayDescription = projectDescription || description;
           <a href="/#work" class="project__back">← Back to portfolio</a>
         </div>
 
-        {projectHero && (
-          <div class="project__hero">
-            <img src={projectHero} alt={`${company} project`} />
-          </div>
-        )}
-
         <header class="project__header">
           <span class="project__period">{period}</span>
           <h1 class="project__title">{company}</h1>
           <p class="project__role">{title}</p>
         </header>
+
+        {projectHero && (
+          <div class:list={['project__hero', { 'project__hero--landscape': heroLandscape }]}>
+            <img src={projectHero} alt={`${company} project`} />
+          </div>
+        )}
 
         {!gallerySections && (
           <section id="description">
@@ -152,9 +154,9 @@ const displayDescription = projectDescription || description;
             {gallerySections.map((section) => (
               <div class="project__content-block">
                 {section.text && <p class="project__gallery-text">{section.text}</p>}
-                <div class:list={['project__gallery', { 'project__gallery--single': section.images.length === 1, 'project__gallery--cropped': section.images.length > 1 }]}>
+                <div class:list={['project__gallery', { 'project__gallery--single': section.images.length === 1 }]}>
                   {section.images.map((src: string, i: number) => (
-                    <img src={src} alt={section.alts?.[i] || ''} loading="lazy" />
+                    <img src={src} alt={section.alts?.[i] || ''} loading="lazy" style={section.aspectRatio ? `aspect-ratio: ${section.aspectRatio}` : undefined} />
                   ))}
                 </div>
                 {section.title && <p class="cs__caption">{section.title}</p>}
@@ -162,7 +164,7 @@ const displayDescription = projectDescription || description;
             ))}
           </section>
         ) : galleryImages && galleryImages.length > 0 ? (
-          <div class:list={['project__gallery', { 'project__gallery--stacked-right': galleryLayout === 'stacked-right' }]}>
+          <div class:list={['project__gallery', { 'project__gallery--stacked-right': galleryLayout === 'stacked-right', 'project__gallery--uniform': uniformImages }]}>
             {galleryImages.map((src: string) => (
               <img src={src} alt="" loading="lazy" />
             ))}
@@ -508,6 +510,11 @@ const displayDescription = projectDescription || description;
   .project__hero img {
     width: 100%;
     border-radius: var(--radius-md);
+    object-fit: cover;
+  }
+
+  .project__hero--landscape img {
+    aspect-ratio: 16 / 9;
   }
 
   .project__description {
@@ -553,6 +560,16 @@ const displayDescription = projectDescription || description;
     height: auto;
     object-fit: cover;
     border-radius: var(--radius-md);
+  }
+
+  .project__gallery--single {
+    grid-template-columns: 1fr;
+  }
+
+
+
+  .project__gallery--uniform img {
+    aspect-ratio: 3 / 4;
   }
 
   .project__gallery--stacked-right img:nth-child(n+4):nth-child(-n+10) {

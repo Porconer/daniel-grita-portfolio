@@ -39,7 +39,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         id: 'overview',
         title: 'Overview',
-        body: 'I led the comprehensive rebranding of PayXpert, an omnichannel payment solution based in France and Spain. The goal was to transition the brand from a fragmented, outdated identity to a modern, unified system on par with industry leaders like Stripe and Adyen.\n\nThrough close collaboration with Product, Compliance, and Legal teams, we delivered a redesigned digital experience and a scalable design system in under a year — transforming how PayXpert\'s complex, feature-rich product is presented to merchants.',
+        body: 'I led the comprehensive rebranding of PayXpert, an omnichannel payment solution based in France and Spain. The goal was to transition the brand from a fragmented, outdated identity to a modern, unified system on par with industry leaders like Stripe and Adyen.\n\nThrough close collaboration with Product, Compliance, and Legal teams, we delivered a redesigned digital experience and a scalable design system in under a year, transforming how PayXpert\'s complex, feature-rich product is presented to merchants.',
         cards: [
           {
             title: 'Simplify Complexity',
@@ -64,7 +64,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: 'The Challenge',
         body: "PayXpert's previous identity was functional but visually cluttered. The website and social media assets lacked clear hierarchy and relied on generic imagery, making the brand feel dated and difficult for merchants to navigate.",
         highlight:
-          'The previous design system suffered from decision fatigue — crowded layouts and weak visual hierarchy made complex financial content overwhelming for users.',
+          'The previous design system suffered from decision fatigue. Crowded layouts and weak visual hierarchy made complex financial content overwhelming for users.',
         cards: [
           {
             title: 'User Need',
@@ -88,7 +88,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         id: 'strategy',
         title: 'Research & Strategy',
-        body: "Competitive analysis revealed that while PayXpert was feature-rich, its visual language lacked the breathing room found in top-tier fintech competitors.\n\nThese insights shaped a less-is-more approach — prioritizing thoughtful typography and a refreshed color palette to build long-term brand equity.",
+        body: "Competitive analysis revealed that while PayXpert was feature-rich, its visual language lacked the breathing room found in top-tier fintech competitors.\n\nThese insights shaped a less-is-more approach, prioritizing thoughtful typography and a refreshed color palette to build long-term brand equity.",
         images: [
           '/images/payxpert-research-01.webp',
           '/images/payxpert-research-02.webp',
@@ -121,7 +121,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           '/images/payxpert-web-01.webp',
           '/images/payxpert-web-02.webp',
         ],
-        imageCaption: 'The redesigned PayXpert website — cleaner hierarchy and modern layouts.',
+        imageCaption: 'The redesigned PayXpert website with cleaner hierarchy and modern layouts.',
       },
       {
         id: 'social',
@@ -212,7 +212,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           {
             title: 'Complexity Requires Space',
             description:
-              "In fintech, spacious layouts aren't just aesthetic — they're a functional necessity for processing complex data.",
+              "In fintech, spacious layouts aren't just aesthetic. They're a functional necessity for processing complex data.",
           },
           {
             title: 'Consistency is a System',
@@ -222,7 +222,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           {
             title: 'Design as Strategy',
             description:
-              'Rebranding is cross-departmental — balancing creative vision with the precision demanded by Legal and Compliance.',
+              'Rebranding is cross-departmental, balancing creative vision with the precision demanded by Legal and Compliance.',
           },
         ],
         images: [],

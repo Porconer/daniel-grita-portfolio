@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SideNav from '../components/SideNav.astro';
 import MobileNav from '../components/MobileNav.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 
 const colors = [
   { name: 'Background', var: '--color-bg', light: '#ffffff', dark: '#121412', hasBorder: true },
@@ -220,6 +221,22 @@ const navItems = [
               <a href="#" onclick="return false" class="is-active">About</a>
               <a href="#" onclick="return false">Work</a>
               <a href="#" onclick="return false">Connect</a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="ds__component">
+          <h3 class="ds__component-name">Mobile Navigation</h3>
+          <p class="ds__section-note">Sticky top bar shown at 768px and below. Horizontally scrollable with centered links.</p>
+          <div class="ds__component-preview ds__component-preview--transparent">
+            <nav class="ds__mobile-nav-sample">
+              <a href="#" onclick="return false">Top</a>
+              <a href="#" onclick="return false" class="is-active">About</a>
+              <a href="#" onclick="return false">Work</a>
+              <a href="#" onclick="return false">Projects</a>
+              <a href="#" onclick="return false">Connect</a>
+              <ThemeToggle />
             </nav>
           </div>
         </div>
@@ -616,6 +633,38 @@ const navItems = [
   }
 
   .ds__side-nav-sample a.is-active {
+    font-weight: 900;
+    color: var(--color-hover);
+  }
+
+  /* Mobile nav sample */
+  .ds__mobile-nav-sample {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0.75rem var(--space-sm);
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
+    overflow-x: auto;
+  }
+
+  .ds__mobile-nav-sample a {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .ds__mobile-nav-sample a:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .ds__mobile-nav-sample a.is-active {
     font-weight: 900;
     color: var(--color-hover);
   }
