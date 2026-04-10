@@ -127,9 +127,9 @@ export const projects: WorkEntry[] = [
 I designed this book as an exercise for practising my layout and editorial skills.
 
 To play around with different textures, colours and overlapping images/typography. Even though I am happy with this project, I intend to keep on working on it.`,
-    image: '/images/concession-hero.webp',
+    image: '/images/concession-hero-thumb.webp',
 
-    projectHero: '/images/concession-hero-cover.webp',
+    projectHero: '/images/concession-hero-cover-r.webp',
     heroLandscape: true,
     gallerySections: [
       {

@@ -1,10 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find /c/Users/Danie/.claude/plugins/cache/claude-plugins-official/figma/ -type f \\\\\\(-name *.json -o -name *.md -o -name manifest.* \\\\\\))",
-      "mcp__figma-remote-mcp__whoami",
-      "mcp__figma-remote-mcp__create_new_file",
-      "mcp__figma-remote-mcp__use_figma",
       "Bash(npm run:*)",
       "Bash(echo \"EXIT:$?\")",
       "Bash(gh auth:*)",
@@ -87,7 +83,18 @@
       "Bash(cp \"/c/Users/Danie/Desktop/Projects/Web/Images for web/364/Model laying down in her bed contemplating.webp\" \"/c/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio/public/images/364-gallery-01.webp\")",
       "Bash(cp \"/c/Users/Danie/Desktop/Projects/Web/Images for web/364/Model resting her head in the lap of her patner.webp\" \"/c/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio/public/images/364-gallery-02.webp\")",
       "Bash(cp \"/c/Users/Danie/Desktop/Projects/Web/Images for web/364/Person sitting backwards in the bed.webp\" \"/c/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio/public/images/364-gallery-03.webp\")",
-      "Bash(cp \"/c/Users/Danie/Desktop/Projects/Web/Images for web/364/Two models hugging themlselves in all white clothes.webp\" \"/c/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio/public/images/364-gallery-04.webp\")"
+      "Bash(cp \"/c/Users/Danie/Desktop/Projects/Web/Images for web/364/Two models hugging themlselves in all white clothes.webp\" \"/c/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio/public/images/364-gallery-04.webp\")",
+      "Bash(find \"/c/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio/public/images\" -type f \\\\\\( -name \"*.jpg\" -o -name \"*.jpeg\" -o -name \"*.png\" -o -name \"*.webp\" -o -name \"*.avif\" \\\\\\) -exec ls -lh {} \\\\;)",
+      "Bash(ls:*)",
+      "Bash(npm install:*)",
+      "Bash(rm:*)",
+      "Bash(npm uninstall:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl -s http://localhost:4321/work/payxpert)",
+      "Bash(curl -s http://localhost:4321/work/signature-spa-consulting)",
+      "Bash(curl -s \"http://localhost:4321/src/layouts/Layout.astro?astro&type=style&index=0&lang.css\")",
+      "Bash(node -e \"const sharp = require\\('sharp'\\); console.log\\('sharp available'\\)\")",
+      "Bash(node -e ':*2)"
     ]
   }
 }
