@@ -4,6 +4,12 @@ export interface GallerySection {
   images: string[];
   alts?: string[];
   aspectRatio?: string;
+  video?: { src: string; poster: string };
+}
+
+export interface HeroVideo {
+  src: string;
+  poster: string;
 }
 
 export interface WorkEntry {
@@ -15,16 +21,18 @@ export interface WorkEntry {
   image: string;
   projectDescription?: string;
   projectHero?: string;
+  heroVideo?: HeroVideo;
   heroLandscape?: boolean;
   uniformImages?: boolean;
   galleryImages?: string[];
   galleryLayout?: 'stacked-right';
+  galleryAspectRatio?: string;
   gallerySections?: GallerySection[];
 }
 
 export const work: WorkEntry[] = [
   {
-    period: '2024 — Present',
+    period: '2024 – Present',
     title: 'Lead Designer',
     company: 'PayXpert',
     slug: 'payxpert',
@@ -34,7 +42,7 @@ export const work: WorkEntry[] = [
 
   },
   {
-    period: '2023 — 2024',
+    period: '2023 – 2024',
     title: 'In-House Designer',
     company: 'Signature Spa Consulting',
     slug: 'signature-spa-consulting',
@@ -75,14 +83,14 @@ export const work: WorkEntry[] = [
     ],
   },
   {
-    period: '2021 — 2023',
+    period: '2021 – 2023',
     title: 'Content Creator & Designer',
     company: 'Lash Paris',
     slug: 'lash-paris',
     description:
       'Lash Paris, a beauty products company in Breda, Holland, was my introduction to the world of beauty, fashion, and content creation. During my two years there, I focused on creating content for the website and social media, showcasing products and their applications. Also gained my first experience managing photoshoots with models.',
     projectDescription: `Lash Paris, a beauty products company based in Breda, Holland, was my first step into the world of beauty and content creation. Over two years I shaped the brand's visual identity, from product photography and packaging to social media content and illustrated graphics.`,
-    image: '/images/lash-paris-hero.webp',
+    image: '/images/lash-paris-gallery-03.webp',
 
     projectHero: '/images/lash-paris-hero.webp',
     gallerySections: [
@@ -116,6 +124,85 @@ export const work: WorkEntry[] = [
 
 export const projects: WorkEntry[] = [
   {
+    period: '2026',
+    title: 'Brand Identity & Commercial Ad',
+    company: 'Chut',
+    slug: 'chut',
+    description:
+      'A branding exercise for a fictitious fruit juice brand, paired with a commercial ad built entirely with AI.',
+    projectDescription: `A branding exercise for Chut, a fictitious fruit juice brand, paired with a commercial ad to bring the identity to life.`,
+    image: '/images/chut-hero.webp',
+    gallerySections: [
+      {
+        text: `Chut is a fictional wellness-tech brand I built as an exercise in functional nutrition branding. The idea was to make the future of wellness feel fast, transparent, and electric.`,
+        images: ['/images/chut-bottles.webp'],
+      },
+      {
+        text: `When it came to the product, I designed the labels around striking colours, bold typography and dynamic elements throughout. I wanted each bottle to feel impactful and alive, a colourful, high-energy design that could hold its own on a shelf.`,
+        images: ['/images/chut-labels.webp'],
+        title: 'Design of the labels + mockup image',
+      },
+      {
+        text: `With the labels finished, I built a mockup of the juice and started generating imagery with AI. The goal was to build out a whole universe for Chut that felt real and contemporary, with product shots, environments and people all tied to the brand.`,
+        images: ['/images/chut-fridge.webp', '/images/chut-social.webp'],
+      },
+      {
+        text: `The next step was the commercial ad. I put together a moodboard and a storyboard, then generated a still image for each scene. Those stills became the starting frames for the AI video generations, which I cut together in Premiere Pro to build the final piece.`,
+        images: [],
+        video: {
+          src: '/videos/chut.mp4',
+          poster: '/videos/chut-poster.jpg',
+        },
+        title: 'Commercial ad made for Chut',
+      },
+      {
+        text: `To close it all off, I built a landing page for the brand. I was learning Webflow at the time, so this felt like the perfect excuse to put it into practice and give the identity a real product touchpoint.`,
+        images: ['/images/chut-landing.webp'],
+        title: 'Hero section of the landing page made for Chut',
+      },
+      {
+        text: `Chut ended up being as much a brand exercise as a process exercise. Designing the identity, mocking up the product, generating imagery and the ad with AI, and building the site in Webflow pushed me across a lot of tools, and gave me a much clearer picture of how AI fits into a modern creative pipeline.`,
+        images: [],
+      },
+    ],
+  },
+  {
+    period: '2026',
+    title: 'Video',
+    company: 'Cuerpo Habitable',
+    slug: 'cuerpo-habitable',
+    description:
+      'Filmed and edited a short fashion video for Bet, an Argentinian fashion designer based in Barcelona.',
+    projectDescription: `I filmed and edited this short video for Bet, an Argentinian fashion designer based in Barcelona.
+
+It was a fun project to take on. I always enjoy working in fashion, especially when it leans alternative and has a disruptive style to it. A big part of the work was scouting and adapting to the different locations, finding angles that matched the energy of the collection.
+
+I then pulled the whole piece together in Premiere Pro and After Effects, leaning on the edit and motion work to give the final video its rhythm and tone.`,
+    image: '/videos/cuerpo-habitable-poster.jpg',
+    heroVideo: {
+      src: '/videos/cuerpo-habitable.mp4',
+      poster: '/videos/cuerpo-habitable-poster.jpg',
+    },
+  },
+  {
+    period: '2025',
+    title: 'Video',
+    company: 'Oakley',
+    slug: 'oakley',
+    description:
+      'My first exercise with AI generated video, a short commercial ad built around Oakley sunglasses.',
+    projectDescription: `This was my first exercise with AI generated video. The idea was to play around with the format of a commercial ad for a brand and see how far I could push it.
+
+A friend had just bought this model of Oakley sunglasses and I thought it would be fun to build something around them. The main struggle was getting the AI to keep the model of the glasses true to the real thing without distorting the shape or the details. It took a lot of back and forth to land on takes that actually felt faithful to the product.
+
+In the end it was a fun project that opened a door for me into this AI world, and it set the stage for the bigger, more structured exercise I later did with Chut.`,
+    image: '/videos/oakley-poster.jpg',
+    heroVideo: {
+      src: '/videos/oakley.mp4',
+      poster: '/videos/oakley-poster.jpg',
+    },
+  },
+  {
     period: '2024',
     title: 'Photography & Editorial Design',
     company: 'Concession Perpetuelle',
@@ -127,7 +214,7 @@ export const projects: WorkEntry[] = [
 I designed this book as an exercise for practising my layout and editorial skills.
 
 To play around with different textures, colours and overlapping images/typography. Even though I am happy with this project, I intend to keep on working on it.`,
-    image: '/images/concession-hero-thumb.webp',
+    image: '/images/concession-mistery-section.webp',
 
     projectHero: '/images/concession-hero-cover-r.webp',
     heroLandscape: true,
@@ -229,6 +316,7 @@ The Editorial and Editing process was fun and served as the glue for all the ele
     image: '/images/364-hero.webp',
 
     projectHero: '/images/364-hero.webp',
+    galleryAspectRatio: '4/5',
     galleryImages: [
       '/images/364-gallery-01.webp',
       '/images/364-gallery-02.webp',

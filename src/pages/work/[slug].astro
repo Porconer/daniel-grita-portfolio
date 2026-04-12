@@ -20,12 +20,14 @@ const entry = allEntries.find((e) => e.slug === slug);
 const galleryLayout = entry?.galleryLayout;
 const gallerySections = entry?.gallerySections;
 const uniformImages = entry?.uniformImages;
+const galleryAspectRatio = entry?.galleryAspectRatio;
 const heroLandscape = entry?.heroLandscape;
+const heroVideo = entry?.heroVideo;
 const caseStudy = caseStudies[slug];
 const displayDescription = projectDescription || description;
 ---
 
-<Layout title={`${company} — Daniel Grita`}>
+<Layout title={`${company} | Daniel Grita`}>
   {caseStudy ? (
     <!-- Case study layout -->
     <div id="top"></div>
@@ -125,19 +127,35 @@ const displayDescription = projectDescription || description;
 
     <div class="page">
       <main class="main-content">
-        <div class="project__top">
+        <div class="project__top fade-in">
           <a href="/#work" class="project__back">← Back to portfolio</a>
         </div>
 
-        <header class="project__header">
+        <header class="project__header fade-in">
           <span class="project__period">{period}</span>
           <h1 class="project__title">{company}</h1>
           <p class="project__role">{title}</p>
         </header>
 
         {projectHero && (
-          <div class:list={['project__hero', { 'project__hero--landscape': heroLandscape }]}>
+          <div class:list={['project__hero fade-in', { 'project__hero--landscape': heroLandscape }]}>
             <img src={projectHero} alt={imgAlt(projectHero)} width={imgDims(projectHero)?.width} height={imgDims(projectHero)?.height} />
+          </div>
+        )}
+
+        {heroVideo && (
+          <div class="project__hero project__hero--video fade-in">
+            <video
+              class="project__video"
+              controls
+              preload="metadata"
+              playsinline
+              poster={heroVideo.poster}
+              width={imgDims(heroVideo.poster)?.width}
+              height={imgDims(heroVideo.poster)?.height}
+            >
+              <source src={heroVideo.src} type="video/mp4" />
+            </video>
           </div>
         )}
 
@@ -145,7 +163,7 @@ const displayDescription = projectDescription || description;
           <section id="description">
             <div class="project__description">
               {displayDescription.split('\n\n').map((paragraph: string) => (
-                <p>{paragraph}</p>
+                <p class="animate">{paragraph}</p>
               ))}
             </div>
           </section>
@@ -155,20 +173,36 @@ const displayDescription = projectDescription || description;
           <section id="description" class="project__content">
             {gallerySections.map((section) => (
               <div class="project__content-block">
-                {section.text && <p class="project__gallery-text">{section.text}</p>}
-                <div class:list={['project__gallery', { 'project__gallery--single': section.images.length === 1 }]}>
-                  {section.images.map((src: string, i: number) => (
-                    <img src={src} alt={section.alts?.[i] || imgAlt(src)} loading="lazy" width={imgDims(src)?.width} height={imgDims(src)?.height} style={section.aspectRatio ? `aspect-ratio: ${section.aspectRatio}` : undefined} />
-                  ))}
-                </div>
-                {section.title && <p class="cs__caption">{section.title}</p>}
+                {section.text && <p class="project__gallery-text animate">{section.text}</p>}
+                {section.video ? (
+                  <div class="project__gallery project__gallery--single animate">
+                    <video
+                      class="project__video"
+                      controls
+                      preload="metadata"
+                      playsinline
+                      poster={section.video.poster}
+                      width={imgDims(section.video.poster)?.width}
+                      height={imgDims(section.video.poster)?.height}
+                    >
+                      <source src={section.video.src} type="video/mp4" />
+                    </video>
+                  </div>
+                ) : section.images.length > 0 && (
+                  <div class:list={['project__gallery animate', { 'project__gallery--single': section.images.length === 1 }]}>
+                    {section.images.map((src: string, i: number) => (
+                      <img src={src} alt={section.alts?.[i] || imgAlt(src)} loading="lazy" width={imgDims(src)?.width} height={imgDims(src)?.height} style={section.aspectRatio ? `aspect-ratio: ${section.aspectRatio}` : undefined} />
+                    ))}
+                  </div>
+                )}
+                {section.title && (section.images.length > 0 || section.video) && <p class="cs__caption animate">{section.title}</p>}
               </div>
             ))}
           </section>
         ) : galleryImages && galleryImages.length > 0 ? (
-          <div class:list={['project__gallery', { 'project__gallery--stacked-right': galleryLayout === 'stacked-right', 'project__gallery--uniform': uniformImages }]}>
+          <div class:list={['project__gallery animate', { 'project__gallery--stacked-right': galleryLayout === 'stacked-right', 'project__gallery--uniform': uniformImages }]}>
             {galleryImages.map((src: string) => (
-              <img src={src} alt={imgAlt(src)} loading="lazy" width={imgDims(src)?.width} height={imgDims(src)?.height} />
+              <img src={src} alt={imgAlt(src)} loading="lazy" width={imgDims(src)?.width} height={imgDims(src)?.height} style={galleryAspectRatio ? `aspect-ratio: ${galleryAspectRatio}` : undefined} />
             ))}
           </div>
         ) : null}
@@ -454,6 +488,10 @@ const displayDescription = projectDescription || description;
     transition-delay: 0.2s;
   }
 
+  .project__top.fade-in { transition-delay: 0s; }
+  .project__header.fade-in { transition-delay: 0.15s; }
+  .project__hero.fade-in { transition-delay: 0.3s; }
+
   /* ------------------------------------------------
      Simple Layout (non case-study fallback)
      ------------------------------------------------ */
@@ -517,6 +555,14 @@ const displayDescription = projectDescription || description;
 
   .project__hero--landscape img {
     object-fit: contain;
+  }
+
+  .project__video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-md);
+    background: #000;
   }
 
   .project__description {
@@ -690,7 +736,7 @@ const displayDescription = projectDescription || description;
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0, rootMargin: '0px 0px -15% 0px' }
     );
 
     scrollElements.forEach((el) => observer.observe(el));

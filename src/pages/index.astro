@@ -9,7 +9,7 @@ import { caseStudies } from '../data/case-studies';
 import { imgDims } from '../data/image-dimensions';
 import { imgAlt } from '../data/image-alt';
 
-const hasProjectPage = (entry: WorkEntry) => entry.projectDescription || entry.projectHero;
+const hasProjectPage = (entry: WorkEntry) => entry.projectDescription || entry.projectHero || entry.heroVideo;
 const linkLabel = (entry: WorkEntry) => caseStudies[entry.slug] ? 'View use case →' : 'View project →';
 
 const navItems = [
@@ -21,7 +21,7 @@ const navItems = [
 ];
 ---
 
-<Layout title="Designer — Portfolio">
+<Layout title="Designer | Portfolio">
   <div id="top"></div>
 
   <MobileNav items={navItems} />
@@ -43,18 +43,19 @@ const navItems = [
         <h2 class="section__label">About</h2>
         <div class="about__content">
           <p>
-            With over 5 years of experience in the design field and content
-            creation, I've had the opportunity to work and study across
-            Portugal, Holland, and now Spain.
+            With over 10 years of experience in design and content creation,
+            I've had the opportunity to work and study across Portugal,
+            Holland, and now Spain.
           </p>
           <p>
-            My creative journey is deeply rooted in the Graffiti Culture and
-            Graphic Design world, as well as Photography, Fine Art, and
-            Street Art.
+            I started early in the Graffiti and Street Art culture, branching
+            out into Graphic Design, Fine Art, and Photography along the way.
           </p>
           <p>
-            I'm always excited to create, collaborate and learn new skills
-            like AI, Web Design and 3D.
+            I'm a bit of a generalist at heart. I love picking up new tools
+            and crossing into new disciplines, whether that's AI, Web Design,
+            Photography, or Video. The variety is what keeps the work
+            exciting.
           </p>
         </div>
       </section>
@@ -217,7 +218,7 @@ const navItems = [
 
   .hero { transition-delay: 0s; }
   .about { transition-delay: 0.3s; }
-  .work { transition-delay: 0.6s; }
+  #work { transition-delay: 0.6s; }
   .work__entry.fade-in { transition-delay: 0.6s; }
 
   .section.is-visible {
@@ -282,7 +283,7 @@ const navItems = [
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0, rootMargin: '0px 0px -15% 0px' }
   );
 
   scrollElements.forEach((el) => observer.observe(el));

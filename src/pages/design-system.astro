@@ -19,7 +19,7 @@ const spacing = [
   { name: 'XS', var: '--space-xs', value: '0.5rem (8px)' },
   { name: 'SM', var: '--space-sm', value: '1rem (16px)' },
   { name: 'MD', var: '--space-md', value: '2rem (32px)' },
-  { name: 'Content Gap', var: '--space-content-gap', value: '2rem (32px) — gap between elements within a section' },
+  { name: 'Content Gap', var: '--space-content-gap', value: '2rem (32px), gap between elements within a section' },
   { name: 'LG', var: '--space-lg', value: '4rem (64px)' },
   { name: 'XL', var: '--space-xl', value: '6rem (96px)' },
   { name: '2XL', var: '--space-2xl', value: '10rem (160px)' },
@@ -41,7 +41,7 @@ const navItems = [
 ];
 ---
 
-<Layout title="Design System — Daniel Grita">
+<Layout title="Design System | Daniel Grita" noindex>
   <div id="top"></div>
 
   <MobileNav items={navItems} />
@@ -51,16 +51,16 @@ const navItems = [
       <!-- Header -->
       <header class="ds__header fade-in">
         <h1 class="ds__title">Design System</h1>
-        <p class="ds__subtitle">Daniel Grita Portfolio — Tokens, Typography & Components</p>
+        <p class="ds__subtitle">Daniel Grita Portfolio · Tokens, Typography & Components</p>
       </header>
 
       <!-- Colors -->
-      <section class="ds__section animate" id="colors">
-        <h2 class="ds__section-title">Colors</h2>
-        <p class="ds__section-note">All colors adapt between light and dark themes via CSS custom properties. The accent color and on-accent stay constant across themes.</p>
+      <section class="ds__section" id="colors">
+        <h2 class="ds__section-title animate">Colors</h2>
+        <p class="ds__section-note animate">All colors adapt between light and dark themes via CSS custom properties. The accent color and on-accent stay constant across themes.</p>
         <div class="ds__colors">
           {colors.map((color) => (
-            <div class="ds__color-card">
+            <div class="ds__color-card animate">
               <div
                 class="ds__color-swatch"
                 style={`background-color: var(${color.var});${color.hasBorder ? ' border: 1px solid var(--color-border);' : ''}`}
@@ -79,12 +79,12 @@ const navItems = [
       </section>
 
       <!-- Typography -->
-      <section class="ds__section animate" id="typography">
-        <h2 class="ds__section-title">Typography</h2>
-        <p class="ds__section-note">Font family: <strong>Quantico</strong> — Weights: 400 (Regular), 400i (Italic), 700 (Bold), 700i (Bold Italic)</p>
+      <section class="ds__section" id="typography">
+        <h2 class="ds__section-title animate">Typography</h2>
+        <p class="ds__section-note animate">Font family: <strong>Quantico</strong> · Weights: 400 (Regular), 400i (Italic), 700 (Bold), 700i (Bold Italic)</p>
 
         <div class="ds__type-samples">
-          <div class="ds__type-row">
+          <div class="ds__type-row animate">
             <div class="ds__type-meta">
               <code>h1</code>
               <span>2rem / 700 / 1.1 / -0.03em</span>
@@ -92,7 +92,7 @@ const navItems = [
             <h1 class="ds__type-sample">Daniel Grita</h1>
           </div>
 
-          <div class="ds__type-row">
+          <div class="ds__type-row animate">
             <div class="ds__type-meta">
               <code>h2</code>
               <span>0.875rem / 500 / uppercase / 0.08em</span>
@@ -100,7 +100,7 @@ const navItems = [
             <h2 class="ds__type-sample-h2">Section Label</h2>
           </div>
 
-          <div class="ds__type-row">
+          <div class="ds__type-row animate">
             <div class="ds__type-meta">
               <code>h3</code>
               <span>1.25rem / 600 / 1.3</span>
@@ -108,7 +108,7 @@ const navItems = [
             <h3 class="ds__type-sample">Lead Designer</h3>
           </div>
 
-          <div class="ds__type-row">
+          <div class="ds__type-row animate">
             <div class="ds__type-meta">
               <code>p (body)</code>
               <span>1rem / 400 / 1.7 / secondary color</span>
@@ -116,7 +116,7 @@ const navItems = [
             <p class="ds__type-sample">Portuguese Visual Artist based in Barcelona. Wrestling daily with Graphic Design, Web Design, and Creative Direction.</p>
           </div>
 
-          <div class="ds__type-row">
+          <div class="ds__type-row animate">
             <div class="ds__type-meta">
               <code>.small</code>
               <span>0.8125rem / 400 / secondary color</span>
@@ -124,7 +124,7 @@ const navItems = [
             <span class="ds__type-sample ds__type-small">Navigation / Meta text</span>
           </div>
 
-          <div class="ds__type-row">
+          <div class="ds__type-row animate">
             <div class="ds__type-meta">
               <code>a (link)</code>
               <span>underline / 3px offset / color transition</span>
@@ -132,7 +132,7 @@ const navItems = [
             <a href="#" class="ds__type-sample ds__type-link" onclick="return false">danielgrita@gmail.com</a>
           </div>
 
-          <div class="ds__type-row">
+          <div class="ds__type-row animate">
             <div class="ds__type-meta">
               <code>.cs__caption</code>
               <span>0.875rem / italic / center / secondary color</span>
@@ -143,11 +143,11 @@ const navItems = [
       </section>
 
       <!-- Spacing -->
-      <section class="ds__section animate" id="spacing">
-        <h2 class="ds__section-title">Spacing Scale</h2>
+      <section class="ds__section" id="spacing">
+        <h2 class="ds__section-title animate">Spacing Scale</h2>
         <div class="ds__spacing-list">
           {spacing.map((sp) => (
-            <div class="ds__spacing-row">
+            <div class="ds__spacing-row animate">
               <div class="ds__spacing-meta">
                 <strong>{sp.name}</strong>
                 <code>{sp.var}</code>
@@ -160,11 +160,11 @@ const navItems = [
       </section>
 
       <!-- Layout -->
-      <section class="ds__section animate" id="layout">
-        <h2 class="ds__section-title">Layout</h2>
+      <section class="ds__section" id="layout">
+        <h2 class="ds__section-title animate">Layout</h2>
         <div class="ds__layout-tokens">
           {layout.map((l) => (
-            <div class="ds__layout-row">
+            <div class="ds__layout-row animate">
               <strong>{l.name}</strong>
               <code>{l.var}</code>
               <span>{l.value}</span>
@@ -172,9 +172,9 @@ const navItems = [
           ))}
         </div>
 
-        <p class="ds__section-note">Two-column grid: main content (1fr) + side nav (90px). Collapses to single column at 768px with a sticky mobile nav bar.</p>
+        <p class="ds__section-note animate">Two-column grid: main content (1fr) + side nav (90px). Collapses to single column at 768px with a sticky mobile nav bar.</p>
 
-        <div class="ds__layout-diagram">
+        <div class="ds__layout-diagram animate">
           <div class="ds__layout-grid">
             <div class="ds__layout-main">
               <span>Main Content (1fr)</span>
@@ -188,11 +188,11 @@ const navItems = [
       </section>
 
       <!-- Components -->
-      <section class="ds__section animate" id="components">
-        <h2 class="ds__section-title">Components</h2>
+      <section class="ds__section" id="components">
+        <h2 class="ds__section-title animate">Components</h2>
 
         <!-- Section Label -->
-        <div class="ds__component">
+        <div class="ds__component animate">
           <h3 class="ds__component-name">Section Label</h3>
           <div class="ds__component-preview">
             <h2 class="section__label">About</h2>
@@ -200,11 +200,11 @@ const navItems = [
         </div>
 
         <!-- Work Entry -->
-        <div class="ds__component">
+        <div class="ds__component animate">
           <h3 class="ds__component-name">Work Entry</h3>
           <div class="ds__component-preview">
             <article class="work__entry">
-              <span class="work__period">2024 — Present</span>
+              <span class="work__period">2024 – Present</span>
               <h3 class="work__title">Lead Designer</h3>
               <span class="work__company">PayXpert</span>
               <p class="work__description">Leading the design at PayXpert, an omnichannel payment solution based in France and Spain.</p>
@@ -213,7 +213,7 @@ const navItems = [
         </div>
 
         <!-- Side Navigation -->
-        <div class="ds__component">
+        <div class="ds__component animate">
           <h3 class="ds__component-name">Side Navigation</h3>
           <div class="ds__component-preview">
             <nav class="ds__side-nav-sample">
@@ -226,7 +226,7 @@ const navItems = [
         </div>
 
         <!-- Mobile Navigation -->
-        <div class="ds__component">
+        <div class="ds__component animate">
           <h3 class="ds__component-name">Mobile Navigation</h3>
           <p class="ds__section-note">Sticky top bar shown at 768px and below. Horizontally scrollable with centered links.</p>
           <div class="ds__component-preview ds__component-preview--transparent">
@@ -242,7 +242,7 @@ const navItems = [
         </div>
 
         <!-- Cards -->
-        <div class="ds__component">
+        <div class="ds__component animate">
           <h3 class="ds__component-name">Case Study Card</h3>
           <div class="ds__component-preview">
             <div class="ds__card-sample">
@@ -253,7 +253,7 @@ const navItems = [
         </div>
 
         <!-- Highlight Banner -->
-        <div class="ds__component">
+        <div class="ds__component animate">
           <h3 class="ds__component-name">Highlight Banner</h3>
           <div class="ds__component-preview ds__component-preview--transparent">
             <div class="ds__highlight-sample">
@@ -264,7 +264,7 @@ const navItems = [
         </div>
 
         <!-- Contact Links -->
-        <div class="ds__component">
+        <div class="ds__component animate">
           <h3 class="ds__component-name">Contact Links</h3>
           <div class="ds__component-preview">
             <div class="contact__links">
@@ -276,7 +276,7 @@ const navItems = [
         </div>
 
         <!-- Theme Toggle -->
-        <div class="ds__component">
+        <div class="ds__component animate">
           <h3 class="ds__component-name">Theme Toggle</h3>
           <div class="ds__component-preview">
             <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
@@ -288,26 +288,26 @@ const navItems = [
       </section>
 
       <!-- States -->
-      <section class="ds__section animate" id="states">
-        <h2 class="ds__section-title">Interactive States</h2>
+      <section class="ds__section" id="states">
+        <h2 class="ds__section-title animate">Interactive States</h2>
         <div class="ds__states">
-          <div class="ds__state-row">
-            <span class="ds__state-label">Link — Default</span>
+          <div class="ds__state-row animate">
+            <span class="ds__state-label">Link · Default</span>
             <a class="ds__state-demo ds__state-link-default">danielgrita@gmail.com</a>
           </div>
-          <div class="ds__state-row">
-            <span class="ds__state-label">Link — Hover</span>
+          <div class="ds__state-row animate">
+            <span class="ds__state-label">Link · Hover</span>
             <a class="ds__state-demo ds__state-link-hover">danielgrita@gmail.com</a>
           </div>
-          <div class="ds__state-row">
-            <span class="ds__state-label">Nav Link — Default</span>
+          <div class="ds__state-row animate">
+            <span class="ds__state-label">Nav Link · Default</span>
             <a class="ds__state-demo ds__state-nav-default">About</a>
           </div>
-          <div class="ds__state-row">
-            <span class="ds__state-label">Nav Link — Active</span>
+          <div class="ds__state-row animate">
+            <span class="ds__state-label">Nav Link · Active</span>
             <a class="ds__state-demo ds__state-nav-active">About</a>
           </div>
-          <div class="ds__state-row">
+          <div class="ds__state-row animate">
             <span class="ds__state-label">Selection</span>
             <span class="ds__state-demo ds__state-selection">Selected text</span>
           </div>
@@ -874,7 +874,7 @@ const navItems = [
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0, rootMargin: '0px 0px -15% 0px' }
     );
 
     scrollElements.forEach((el) => observer.observe(el));

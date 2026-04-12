@@ -67,6 +67,18 @@ const dims: Record<string, [number, number]> = {
   '/images/tombstone-gallery-04.webp': [3915, 2143],
   '/images/tombstone-gallery-05.webp': [3466, 1981],
   '/images/tombstone-hero.webp': [3466, 1981],
+  '/images/chut-bottles.webp': [1920, 1080],
+  '/images/chut-fridge.webp': [1920, 1080],
+  '/images/chut-hero.webp': [1920, 1080],
+  '/images/chut-labels.webp': [1920, 1080],
+  '/images/chut-landing.webp': [1920, 1080],
+  '/images/chut-social.webp': [1920, 1080],
+  '/videos/chut.mp4': [1660, 1244],
+  '/videos/chut-poster.jpg': [1660, 1244],
+  '/videos/cuerpo-habitable.mp4': [1920, 1080],
+  '/videos/cuerpo-habitable-poster.jpg': [1920, 1080],
+  '/videos/oakley.mp4': [1108, 828],
+  '/videos/oakley-poster.jpg': [1108, 828],
 };
 
 export function imgDims(src: string): { width: number; height: number } | undefined {
