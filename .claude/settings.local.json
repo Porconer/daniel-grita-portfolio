@@ -29,7 +29,24 @@
       "Bash(awk '{print $5, $9}')",
       "Bash(powershell -c \"Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force\")",
       "Bash(kill %1)",
-      "Bash(pkill -f \"astro dev\")"
+      "Bash(pkill -f \"astro dev\")",
+      "Bash(powershell -NoProfile -Command \"Get-Command msedge.exe, chrome.exe -ErrorAction SilentlyContinue | Select-Object -Property Name, Source\")",
+      "Read(//c/Program Files/Microsoft/Edge/Application/**)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=\"C:/Users/Danie/Desktop/Portfolio/Resume/New CV/resume.pdf\" \"file:///C:/Users/Danie/Desktop/Portfolio/Resume/New%20CV/resume.html\")",
+      "Bash(npx skills *)",
+      "Bash(node .agents/skills/impeccable/scripts/cleanup-deprecated.mjs)",
+      "Bash(node \"C:/Users/Danie/.claude/skills/impeccable/scripts/cleanup-deprecated.mjs\")",
+      "Read(//c/Users/Danie/.claude/plugins/**)",
+      "Read(//c/Users/Danie/.claude/skills/**)",
+      "Read(//c/Users/Danie/**)",
+      "Bash(claude plugin *)",
+      "Bash(claude mcp *)",
+      "Bash(git -C \"C:/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio\" diff --stat)",
+      "Bash(git -C \"C:/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio\" diff -- src/)",
+      "Read(//tmp/**)",
+      "Bash(git -C \"C:/Users/Danie/Desktop/Projects/Web/Daniel Grita Portfolio\" diff -- src/pages/ src/components/)",
+      "Bash(git add *)"
     ]
   }
 }

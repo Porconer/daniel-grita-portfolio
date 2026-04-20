@@ -1,37 +1,38 @@
 /* ------------------------------------------------
-   Self-hosted Quantico font
+   Fonts: Nippo (display, Fontshare CDN via <link> in Layout.astro)
+          + Quantico (body, self-hosted)
    ------------------------------------------------ */
 
 @font-face {
   font-family: 'Quantico';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
   src: url('/fonts/quantico-regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Quantico';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/quantico-bold.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Quantico';
-  font-style: italic;
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
-  src: url('/fonts/quantico-italic.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Quantico';
+  src: url('/fonts/quantico-italic.woff2') format('woff2');
+  font-weight: 400;
   font-style: italic;
-  font-weight: 700;
   font-display: swap;
+}
+
+@font-face {
+  font-family: 'Quantico';
+  src: url('/fonts/quantico-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Quantico';
   src: url('/fonts/quantico-bold-italic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
 }
 
 /* ------------------------------------------------
@@ -47,16 +48,18 @@
 }
 
 :root {
-  --color-bg: #ffffff;
+  --color-bg: oklch(99% 0.005 130);
   --color-title: #191d1a;
   --color-text: #3a3f3b;
   --color-text-secondary: #6b716c;
   --color-border: #e5e5e5;
-  --color-hover: #000000;
+  --color-hover: oklch(10% 0.005 130);
   --color-accent: #cff500;
   --color-on-accent: #191d1a;
   --color-img-bg: #f5f5f5;
 
+  --font-display: 'Nippo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
   --font-sans: 'Quantico', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     sans-serif;
 
@@ -74,6 +77,9 @@
 
   --max-width: 1000px;
   --nav-width: 90px;
+
+  --touch-target-min: 44px;
+  --touch-target-compact: 24px;
 }
 
 [data-theme="dark"] {
@@ -118,6 +124,11 @@ a:hover {
   text-decoration: underline;
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 ::selection {
   background: var(--color-text);
   color: var(--color-bg);
@@ -128,7 +139,8 @@ a:hover {
    ------------------------------------------------ */
 
 h1 {
-  font-size: 2rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.25rem + 2.5vw, 2.5rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -166,7 +178,8 @@ p {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--space-xl) var(--space-md);
-  gap: var(--space-md);
+  column-gap: var(--space-md);
+  row-gap: var(--space-xl);
 }
 
 .main-content {
@@ -228,6 +241,37 @@ p {
 }
 
 /* ------------------------------------------------
+   Floating chip button (.ds-link)
+   ------------------------------------------------ */
+
+.ds-link {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target-min);
+  background: var(--color-title);
+  color: var(--color-bg);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: opacity 0.2s ease;
+  z-index: 50;
+}
+
+.ds-link:hover {
+  opacity: 0.8;
+  color: var(--color-bg);
+  text-decoration: none;
+}
+
+/* ------------------------------------------------
    Theme toggle
    ------------------------------------------------ */
 
@@ -237,13 +281,28 @@ p {
   cursor: pointer;
   font-size: 1rem;
   color: var(--color-text-secondary);
-  padding: 0.25rem 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target-compact);
+  min-width: var(--touch-target-compact);
+  padding: 0 0.25rem;
   transition: color 0.2s ease;
   margin-left: auto;
 }
 
+.mobile-nav .theme-toggle {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+}
+
+.side-nav .theme-toggle {
+  justify-content: flex-end;
+  padding: 0.125rem 0;
+}
+
 .theme-toggle:hover {
-  color: var(--color-accent);
+  color: var(--color-hover);
 }
 
 /* ------------------------------------------------
@@ -283,7 +342,7 @@ p {
 }
 
 .contact__links a:hover {
-  color: var(--color-accent);
+  color: var(--color-hover);
 }
 
 /* ------------------------------------------------
@@ -327,5 +386,28 @@ p {
   .contact__links {
     flex-direction: column;
     gap: var(--space-xs);
+  }
+}
+
+/* ------------------------------------------------
+   Reduced motion
+   ------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .fade-in,
+  .animate,
+  .section {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

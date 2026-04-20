@@ -122,11 +122,11 @@ const navItems = [
         </div>
       </section>
 
-      <!-- Contact -->
-      <Contact />
     </main>
 
     <SideNav items={navItems} />
+
+    <Contact />
   </div>
 
   <a href="/design-system" class="ds-link">Design System</a>
@@ -217,7 +217,7 @@ const navItems = [
   }
 
   .work__link:hover {
-    color: var(--color-accent);
+    color: var(--color-hover);
   }
 
   /* ------------------------------------------------
@@ -254,32 +254,6 @@ const navItems = [
     transform: translateY(0);
   }
 
-  /* ------------------------------------------------
-     Design System link
-     ------------------------------------------------ */
-
-  .ds-link {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--color-title);
-    color: var(--color-bg);
-    padding: 8px 16px;
-    font-size: 0.75rem;
-    text-decoration: none;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-family: var(--font-sans);
-    border-radius: var(--radius-sm);
-    transition: opacity 0.2s ease;
-    z-index: 50;
-  }
-
-  .ds-link:hover {
-    opacity: 0.8;
-    color: var(--color-bg);
-    text-decoration: none;
-  }
 </style>
 
 <script>

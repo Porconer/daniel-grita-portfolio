@@ -5,12 +5,12 @@ import MobileNav from '../components/MobileNav.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 
 const colors = [
-  { name: 'Background', var: '--color-bg', light: '#ffffff', dark: '#121412', hasBorder: true },
+  { name: 'Background', var: '--color-bg', light: 'oklch(99% 0.005 130)', dark: '#121412', hasBorder: true },
   { name: 'Title', var: '--color-title', light: '#191d1a', dark: '#f0f2f0' },
   { name: 'Text', var: '--color-text', light: '#3a3f3b', dark: '#c5c9c6' },
   { name: 'Text Secondary', var: '--color-text-secondary', light: '#6b716c', dark: '#8a8f8b' },
   { name: 'Border', var: '--color-border', light: '#e5e5e5', dark: '#2a2d2a' },
-  { name: 'Hover', var: '--color-hover', light: '#000000', dark: '#ffffff' },
+  { name: 'Hover', var: '--color-hover', light: 'oklch(10% 0.005 130)', dark: '#ffffff' },
   { name: 'Accent', var: '--color-accent', light: '#cff500', dark: '#cff500' },
   { name: 'On Accent', var: '--color-on-accent', light: '#191d1a', dark: '#191d1a' },
 ];
@@ -81,7 +81,7 @@ const navItems = [
       <!-- Typography -->
       <section class="ds__section" id="typography">
         <h2 class="ds__section-title animate">Typography</h2>
-        <p class="ds__section-note animate">Font family: <strong>Quantico</strong> · Weights: 400 (Regular), 400i (Italic), 700 (Bold), 700i (Bold Italic)</p>
+        <p class="ds__section-note animate">Display: <strong>Nippo</strong> · Weights: 400, 700 · Used for h1, .cs__title, .project__title, .cs__company.<br>Body: <strong>Quantico</strong> · Weights: 400, 400i, 700, 700i.</p>
 
         <div class="ds__type-samples">
           <div class="ds__type-row animate">
@@ -285,6 +285,15 @@ const navItems = [
             </button>
           </div>
         </div>
+
+        <!-- Floating Chip Button -->
+        <div class="ds__component animate">
+          <h3 class="ds__component-name">Floating Chip Button</h3>
+          <p class="ds__section-note">The single button style used across the site. Persistent corner navigation between Portfolio and Design System. 44px min-height, Chillax Medium, uppercase, 0.05em tracking.</p>
+          <div class="ds__component-preview">
+            <a class="ds-link" href="#" onclick="return false">Portfolio</a>
+          </div>
+        </div>
       </section>
 
       <!-- States -->
@@ -318,7 +327,7 @@ const navItems = [
     <SideNav items={navItems} />
   </div>
 
-  <a href="/" class="ds-link">&larr; Portfolio</a>
+  <a href="/" class="ds-link">Portfolio</a>
 </Layout>
 
 <style>
@@ -474,7 +483,7 @@ const navItems = [
   }
 
   .ds__type-link:hover {
-    color: var(--color-accent);
+    color: var(--color-hover);
   }
 
   /* ------------------------------------------------
@@ -609,6 +618,11 @@ const navItems = [
     padding: 0;
   }
 
+  /* Render the real .ds-link inline inside previews (overrides position: fixed) */
+  .ds__component-preview .ds-link {
+    position: static;
+  }
+
   /* Side nav sample */
   .ds__side-nav-sample {
     display: flex;
@@ -620,6 +634,10 @@ const navItems = [
   }
 
   .ds__side-nav-sample a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: var(--touch-target-compact);
     font-size: 0.8125rem;
     color: var(--color-text-secondary);
     text-decoration: none;
@@ -628,7 +646,7 @@ const navItems = [
   }
 
   .ds__side-nav-sample a:hover {
-    color: var(--color-accent);
+    color: var(--color-hover);
     text-decoration: none;
   }
 
@@ -643,7 +661,7 @@ const navItems = [
     justify-content: center;
     align-items: center;
     gap: var(--space-sm);
-    padding: 0.75rem var(--space-sm);
+    padding: 0 var(--space-sm);
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
     border-top: 1px solid var(--color-border);
@@ -651,6 +669,10 @@ const navItems = [
   }
 
   .ds__mobile-nav-sample a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    padding: 0 0.25rem;
     font-size: 0.8125rem;
     font-weight: 600;
     color: var(--color-text-secondary);
@@ -660,7 +682,7 @@ const navItems = [
   }
 
   .ds__mobile-nav-sample a:hover {
-    color: var(--color-accent);
+    color: var(--color-hover);
     text-decoration: none;
   }
 
@@ -826,32 +848,6 @@ const navItems = [
     }
   }
 
-  /* ------------------------------------------------
-     Portfolio link (fixed bottom-right)
-     ------------------------------------------------ */
-
-  .ds-link {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--color-title);
-    color: var(--color-bg);
-    padding: 8px 16px;
-    font-size: 0.75rem;
-    text-decoration: none;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-family: var(--font-sans);
-    border-radius: var(--radius-sm);
-    transition: opacity 0.2s ease;
-    z-index: 50;
-  }
-
-  .ds-link:hover {
-    opacity: 0.8;
-    color: var(--color-bg);
-    text-decoration: none;
-  }
 </style>
 
 <script>

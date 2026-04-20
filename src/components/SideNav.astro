@@ -39,6 +39,10 @@ const { items } = Astro.props;
   }
 
   .side-nav__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: var(--touch-target-compact);
     font-size: 0.8125rem;
     color: var(--color-text-secondary);
     text-decoration: none;
@@ -47,7 +51,7 @@ const { items } = Astro.props;
   }
 
   .side-nav__link:hover {
-    color: var(--color-accent);
+    color: var(--color-hover);
     text-decoration: none;
   }
 

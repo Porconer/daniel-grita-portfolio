@@ -16,7 +16,6 @@ export function initScrollSpy() {
 
   if (allNavLinks.length === 0) return;
 
-  // Pre-compute href → id mapping so we don't parse strings on every scroll tick
   const linkIdMap = new Map<Element, string>();
   const uniqueIds: string[] = [];
   allNavLinks.forEach((link) => {
@@ -31,7 +30,6 @@ export function initScrollSpy() {
     .map((id) => document.getElementById(id))
     .filter((el): el is HTMLElement => el !== null);
 
-  // Create floating dots
   let sideDot: HTMLElement | null = null;
   let mobileDot: HTMLElement | null = null;
 
@@ -61,20 +59,30 @@ export function initScrollSpy() {
     }
   }
 
+  const activeMap = new Map<string, boolean>();
+  sections.forEach((section) => activeMap.set(section.id, false));
+
+  const lastId = uniqueIds[uniqueIds.length - 1];
+  const isAtBottom = () =>
+    window.innerHeight + window.scrollY >= document.body.scrollHeight - BOTTOM_THRESHOLD;
+
+  let lastCurrentId: string | null = null;
+
   function updateActiveNav() {
     let currentId = 'top';
-    const atBottom = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - BOTTOM_THRESHOLD);
-    const lastId = uniqueIds[uniqueIds.length - 1];
 
-    if (atBottom && lastId) {
+    if (isAtBottom() && lastId) {
       currentId = lastId;
     } else {
       for (const section of sections) {
-        if (section.getBoundingClientRect().top <= SECTION_TOP_OFFSET) {
+        if (activeMap.get(section.id)) {
           currentId = section.id;
         }
       }
     }
+
+    if (currentId === lastCurrentId) return;
+    lastCurrentId = currentId;
 
     allNavLinks.forEach((link) => {
       link.classList.toggle('is-active', linkIdMap.get(link) === currentId);
@@ -91,7 +99,58 @@ export function initScrollSpy() {
     }
   }
 
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
-  window.addEventListener('resize', updateActiveNav, { passive: true });
+  function repositionDots() {
+    if (sideDot && sideNavInner) {
+      const activeLink = sideNavInner.querySelector<HTMLAnchorElement>('.side-nav__link.is-active');
+      if (activeLink) positionDot(sideDot, activeLink, sideNavInner);
+    }
+    if (mobileDot && mobileNav) {
+      const activeLink = mobileNav.querySelector<HTMLAnchorElement>('.mobile-nav__link.is-active');
+      if (activeLink) positionDot(mobileDot, activeLink, mobileNav);
+    }
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        activeMap.set(entry.target.id, entry.isIntersecting);
+      });
+      updateActiveNav();
+    },
+    {
+      rootMargin: `-${SECTION_TOP_OFFSET}px 0px -80% 0px`,
+      threshold: 0,
+    }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+
+  let wasAtBottom = false;
+  window.addEventListener(
+    'scroll',
+    () => {
+      const atBottom = isAtBottom();
+      if (atBottom !== wasAtBottom) {
+        wasAtBottom = atBottom;
+        updateActiveNav();
+      }
+    },
+    { passive: true }
+  );
+
+  let resizePending = false;
+  window.addEventListener(
+    'resize',
+    () => {
+      if (resizePending) return;
+      resizePending = true;
+      requestAnimationFrame(() => {
+        resizePending = false;
+        repositionDots();
+      });
+    },
+    { passive: true }
+  );
+
   updateActiveNav();
 }
